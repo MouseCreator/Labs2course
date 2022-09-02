@@ -7,7 +7,7 @@ public class Generator {
     public static int getInt() {
         return random.nextInt(256);
     }
-    public  static  int getInt(int from, int to) {
+    public  static  int get(int from, int to) {
         return random.nextInt(from, to);
     }
 }

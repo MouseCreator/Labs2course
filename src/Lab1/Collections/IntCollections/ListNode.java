@@ -1,30 +1,30 @@
 package Lab1.Collections.IntCollections;
 
-public class IntNode {
+public class ListNode {
     Object value;
-    IntNode next;
-    public IntNode(Object v, IntNode from) {
+    ListNode next;
+    public ListNode(Object v, ListNode from) {
         this.value = v;
         this.next = from;
     }
-    public IntNode(Object v) {
+    public ListNode(Object v) {
         this.value = v;
         this.next = null;
     }
     Object getValue() {
         return value;
     }
-    void setValue(int value) {
+    void setValue(Object value) {
         this.value = value;
     }
-    IntNode getNext() {
+    ListNode getNext() {
         return this.next;
     }
     @Override
     public String toString() {
         return String.valueOf(this.value);
     }
-    void setNext(IntNode node) {
+    void setNext(ListNode node) {
         this.next = node;
     }
 }
