@@ -1,17 +1,17 @@
-package Lab1.Collections;
+package Lab1.Collections.IntCollections;
 
-public class IntNode extends StackNode{
-    int value;
+public class IntNode {
+    Object value;
     IntNode next;
-    public IntNode(int v, IntNode from) {
+    public IntNode(Object v, IntNode from) {
         this.value = v;
         this.next = from;
     }
-    public IntNode(int v) {
+    public IntNode(Object v) {
         this.value = v;
         this.next = null;
     }
-    int getValue() {
+    Object getValue() {
         return value;
     }
     void setValue(int value) {

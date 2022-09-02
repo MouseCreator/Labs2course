@@ -1,6 +1,8 @@
-package Lab1.Collections;
+package Lab1.Collections.IntCollections;
 
-public class IntQueue extends IntList {
+import Lab1.Collections.CollectionT;
+
+public class IntQueue<T> implements Queue {
     private IntNode begin;
     private IntNode end;
     private int size;
@@ -9,11 +11,12 @@ public class IntQueue extends IntList {
         this.size = 0;
         this.begin = null;
     }
-    IntQueue(int... ints) {
-        this.pushSeveral(ints);
+
+    public void pushSeveralBack(Object objects) {
+
     }
-    @Override
-    public void push(int v) {
+
+    public void pushBack(Object v) {
         IntNode toAdd = new IntNode(v);
         if (this.end != null) {
             this.end.setNext(toAdd);
@@ -24,11 +27,14 @@ public class IntQueue extends IntList {
         }
         this.size++;
     }
+    public Object peekBack() {
+        IntNode begin = this.begin;
+        return begin != null ? begin.getValue() : null;
+    }
 
-    @Override
-    public int pop() {
+    public Object popBack() {
         try {
-            int result = this.begin.getValue();
+            Object result = this.begin.getValue();
             this.size--;
             this.begin = this.begin.getNext();
             return result;
@@ -36,6 +42,17 @@ public class IntQueue extends IntList {
         catch (NullPointerException e) {
             return 0;
         }
+    }
+
+    public void fillWithRandomValues(int num) {
+
+    }
+    public int getSize() {
+        return this.size;
+    }
+
+    public boolean isEmpty() {
+        return this.size == 0;
     }
 
 }
