@@ -1,4 +1,4 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.Nodes;
 
 public abstract class Node<T> {
     private T value;

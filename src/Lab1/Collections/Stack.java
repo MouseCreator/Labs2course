@@ -1,4 +1,4 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections;
 
 import Lab1.Collections.Collection;
 

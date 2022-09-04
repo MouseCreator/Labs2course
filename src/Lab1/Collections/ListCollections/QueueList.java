@@ -1,15 +1,18 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.ListCollections;
+
+import Lab1.Collections.Nodes.ListNode;
+import Lab1.Collections.Queue;
 
 public class QueueList<T> implements Queue<T> {
     private ListNode<T> begin;
     private ListNode<T> end;
     private int size;
 
-    private final AbstractList<T> list;
+    private final ImplicitList<T> list;
     public QueueList() {
         this.size = 0;
         this.begin = null;
-        list = new AbstractList<>();
+        list = new ImplicitList<>();
     }
 
 

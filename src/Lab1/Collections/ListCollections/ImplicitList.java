@@ -1,6 +1,8 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.ListCollections;
 
-public class AbstractList<T> {
+import Lab1.Collections.Nodes.ListNode;
+
+class ImplicitList<T> {
 
     public ListNode<T> push(ListNode<T> position, T data) {
         ListNode<T> toAdd = new ListNode<>(data, position);

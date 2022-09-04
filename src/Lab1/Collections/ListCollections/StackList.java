@@ -1,14 +1,16 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.ListCollections;
 
-/* Probably should make an abstract list with double-connected nodes and each data type would use it*/
+import Lab1.Collections.Nodes.ListNode;
+import Lab1.Collections.Stack;
+
 public class StackList<T> implements Stack<T> {
-    private final AbstractList<T> list;
+    private final ImplicitList<T> list;
     private ListNode<T> begin;
     private int size;
     public StackList() {
         this.begin = null;
         this.size = 0;
-        list = new AbstractList<>();
+        list = new ImplicitList<>();
     }
 
     @Override

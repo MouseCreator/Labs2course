@@ -1,7 +1,9 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.ListCollections;
 
-public class AbstractDoubleList<T> {
-    public AbstractDoubleList() {
+import Lab1.Collections.Nodes.DoubleListNode;
+
+class ImplicitDoubleList<T> {
+    public ImplicitDoubleList() {
 
     }
     public DoubleListNode<T> pushFirst(DoubleListNode<T> position, T data) {

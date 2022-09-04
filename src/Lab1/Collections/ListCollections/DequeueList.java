@@ -1,13 +1,17 @@
-package Lab1.Collections.IntCollections;
+package Lab1.Collections.ListCollections;
+
+import Lab1.Collections.Nodes.DoubleListNode;
+import Lab1.Collections.Queue;
+import Lab1.Collections.Stack;
 
 public class DequeueList<T> implements Stack<T>, Queue<T> {
 
     private int size;
     private DoubleListNode<T> begin;
     private DoubleListNode<T> end;
-    AbstractDoubleList<T> list;
+    ImplicitDoubleList<T> list;
     public DequeueList() {
-        list = new AbstractDoubleList<>();
+        list = new ImplicitDoubleList<>();
         size = 0;
         begin = null;
         end = null;
