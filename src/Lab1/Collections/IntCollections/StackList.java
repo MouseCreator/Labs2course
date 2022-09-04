@@ -2,12 +2,15 @@ package Lab1.Collections.IntCollections;
 
 /* Probably should make an abstract list with double-connected nodes and each data type would use it*/
 public class StackList<T> implements Stack<T> {
+    private final AbstractList<T> list;
+    private ListNode<T> begin;
+    private int size;
     public StackList() {
         this.begin = null;
         this.size = 0;
+        list = new AbstractList<>();
     }
-    private ListNode<T> begin;
-    private int size;
+
     @Override
     public void fillWithRandomValues(int num) {
 
@@ -17,34 +20,24 @@ public class StackList<T> implements Stack<T> {
     public int getSize() {
         return this.size;
     }
-    public ListNode<T> getBegin() {
-        return this.begin;
-    }
     public boolean isEmpty() {
         return this.size == 0;
     }
 
-    @Override
-    public void push(T t) {
-        this.begin = new ListNode<>(t, this.begin);
+    public void pushS(T t) {
+        this.begin = list.push(begin, t);
         this.size++;
     }
 
-    @Override
-    public T peek() {
-        return this.isEmpty() ? null : this.begin.getValue();
+    public T peekS() {
+        return list.peek(begin);
     }
 
-    @Override
-    public T pop() {
-        try {
-            T result = this.begin.getValue();
-            this.begin = this.begin.getNext();
-            this.size--;
-            return result;
-        } catch (NullPointerException e) {
-            return null;
-        }
+    public T popS() {
+        T result = list.peek(begin);
+        this.begin = list.pop(begin);
+        this.size--;
+        return result;
     }
 
     @Override
