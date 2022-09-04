@@ -1,9 +1,9 @@
 package Lab1.Collections.IntCollections;
 
-import Lab1.Collections.CollectionT;
+import Lab1.Collections.Collection;
 
-public interface IntCollection extends CollectionT {
+public interface IntCollection<T> extends Collection<T> {
 
-    Object peek();
+    T peek();
 
 }

@@ -1,21 +1,12 @@
 package Lab1.Collections.IntCollections;
 
-
-public class StackList implements Stack {
-    public StackList(Class c) {
+/* Probably should make an abstract list with double-connected nodes and each data type would use it*/
+public class StackList<T> implements Stack<T> {
+    public StackList() {
         this.begin = null;
         this.size = 0;
-        this.dataType = c;
     }
-    public StackList(Object element) {
-        this.begin = null;
-        this.size = 0;
-        this.dataType = element.getClass();
-        this.push(element);
-    }
-    private ListNode begin;
-
-    final Object dataType;
+    private ListNode<T> begin;
     private int size;
     @Override
     public void fillWithRandomValues(int num) {
@@ -26,58 +17,46 @@ public class StackList implements Stack {
     public int getSize() {
         return this.size;
     }
-    public ListNode getBegin() {
+    public ListNode<T> getBegin() {
         return this.begin;
-    }
-    public void setBegin(ListNode begin) {
-        this.begin = begin;
     }
     public boolean isEmpty() {
         return this.size == 0;
     }
 
     @Override
-    public void pushSeveral(Object... objects) {
-        for (Object object : objects) {
-            this.push(object);
-        }
+    public void push(T t) {
+        this.begin = new ListNode<>(t, this.begin);
+        this.size++;
     }
 
     @Override
-    public void push(Object object) {
-        if (isValid(object)) {
-            this.begin = new ListNode(object, this.begin);
-            this.size++;
-        }
-        else {
-            ErrorInformer.printError(ErrorCodes.INVALID_DATA_TYPE);
-        }
+    public T peek() {
+        return this.isEmpty() ? null : this.begin.getValue();
     }
 
     @Override
-    public Object peek() {
-        return this.isEmpty() ? 0 : this.begin.getValue();
-    }
-
-    @Override
-    public Object pop() {
+    public T pop() {
         try {
-            Object result = this.begin.getValue();
+            T result = this.begin.getValue();
             this.begin = this.begin.getNext();
             this.size--;
-            return  result;
+            return result;
         } catch (NullPointerException e) {
-            return 0;
+            return null;
         }
     }
-    private boolean isValid(Class c) {
-        return this.dataType.equals(c);
+
+    @Override
+    public String toString() {
+        ListNode<T> node = this.begin;
+        StringBuilder builder = new StringBuilder("[");
+        while(node != null) {
+            builder.append(" ");
+            builder.append(node.getValue().toString());
+            node = node.getNext();
+        }
+        builder.append(" ]");
+        return builder.toString();
     }
-    private boolean isValid(Object object) {
-        return this.dataType.equals(object.getClass());
-    }
-
-
-
-
 }

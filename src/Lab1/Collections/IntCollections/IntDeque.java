@@ -1,7 +1,11 @@
 package Lab1.Collections.IntCollections;
 
-public class IntDeque implements Stack, Queue {
+public class IntDeque<T> implements Stack<T>, Queue<T> {
     //TODO
+    private int size;
+
+    ListNode<T> begin;
+    ListNode<T> end;
     @Override
     public void fillWithRandomValues(int num) {
 
@@ -17,15 +21,7 @@ public class IntDeque implements Stack, Queue {
         return false;
     }
 
-    @Override
-    public void pushSeveral(Object objects) {
 
-    }
-
-    @Override
-    public void pushSeveral(Object... objects) {
-
-    }
 
     @Override
     public void push(Object v) {
@@ -33,12 +29,12 @@ public class IntDeque implements Stack, Queue {
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         return null;
     }
 
     @Override
-    public Object pop() {
+    public T pop() {
         return null;
     }
 }
