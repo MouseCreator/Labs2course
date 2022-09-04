@@ -1,7 +1,9 @@
-package Lab1.Collections.ListCollections;
+package Lab1.Collections.Collect.ListCollections;
 
-import Lab1.Collections.Nodes.ListNode;
+import Lab1.Collections.Collect.Nodes.ListNode;
 import Lab1.Collections.Stack;
+
+import java.util.Scanner;
 
 public class StackList<T> implements Stack<T> {
     private final ImplicitList<T> list;
@@ -35,7 +37,7 @@ public class StackList<T> implements Stack<T> {
         return list.peek(begin);
     }
 
-    public T popS() {
+    public T popS() throws NullPointerException {
         T result = list.peek(begin);
         this.begin = list.pop(begin);
         this.size--;
@@ -54,4 +56,12 @@ public class StackList<T> implements Stack<T> {
         builder.append(" ]");
         return builder.toString();
     }
+    protected static StackList<Double> fromDouble(double[] source) {
+        StackList<Double> result = new StackList<>();
+        for (int i = source.length - 1; i >= 0; i--) {
+            result.pushS(source[i]);
+        }
+        return result;
+    }
+
 }

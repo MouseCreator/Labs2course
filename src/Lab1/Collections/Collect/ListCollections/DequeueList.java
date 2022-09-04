@@ -1,6 +1,6 @@
-package Lab1.Collections.ListCollections;
+package Lab1.Collections.Collect.ListCollections;
 
-import Lab1.Collections.Nodes.DoubleListNode;
+import Lab1.Collections.Collect.Nodes.DoubleListNode;
 import Lab1.Collections.Queue;
 import Lab1.Collections.Stack;
 

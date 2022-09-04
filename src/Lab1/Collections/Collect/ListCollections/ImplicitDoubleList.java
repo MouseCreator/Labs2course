@@ -1,6 +1,6 @@
-package Lab1.Collections.ListCollections;
+package Lab1.Collections.Collect.ListCollections;
 
-import Lab1.Collections.Nodes.DoubleListNode;
+import Lab1.Collections.Collect.Nodes.DoubleListNode;
 
 class ImplicitDoubleList<T> {
     public ImplicitDoubleList() {

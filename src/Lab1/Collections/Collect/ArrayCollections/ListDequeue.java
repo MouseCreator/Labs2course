@@ -1,4 +1,4 @@
-package Lab1.Collections.ArrayCollections;
+package Lab1.Collections.Collect.ArrayCollections;
 
 import Lab1.Collections.Queue;
 import Lab1.Collections.Stack;

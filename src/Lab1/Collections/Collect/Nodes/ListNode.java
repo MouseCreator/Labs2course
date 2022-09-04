@@ -1,4 +1,4 @@
-package Lab1.Collections.Nodes;
+package Lab1.Collections.Collect.Nodes;
 
 public class ListNode<T> extends Node<T> {
 
@@ -14,8 +14,6 @@ public class ListNode<T> extends Node<T> {
     public void setNext(ListNode<T> node) {
         this.next = node;
     }
-
-
     public boolean hasNext() {
         return this.next == null;
     }

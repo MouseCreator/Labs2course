@@ -1,4 +1,4 @@
-package Lab1.Collections.Nodes;
+package Lab1.Collections.Collect.Nodes;
 
 public class DoubleListNode<T> extends Node<T> {
     DoubleListNode<T> next;

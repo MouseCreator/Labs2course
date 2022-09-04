@@ -1,6 +1,6 @@
-package Lab1.Collections.ListCollections;
+package Lab1.Collections.Collect.ListCollections;
 
-import Lab1.Collections.Nodes.ListNode;
+import Lab1.Collections.Collect.Nodes.ListNode;
 import Lab1.Collections.Queue;
 
 public class QueueList<T> implements Queue<T> {

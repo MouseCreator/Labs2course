@@ -1,4 +1,4 @@
-package Lab1.Collections.ArrayCollections;
+package Lab1.Collections.Collect.ArrayCollections;
 
 import Lab1.Collections.Stack;
 
@@ -38,7 +38,7 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     }
 
     @Override
-    public void pushS(T v) {
+    public void pushS (T v) throws Exception {
         if (lastIndex < limit) {
             lastIndex++;
             this.array[lastIndex] = v;
@@ -50,7 +50,9 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
         }
     }
 
-    private void doubleBounds() {
+    private void doubleBounds() throws Exception{
+        if(limit / 2 > Integer.MAX_VALUE)
+            throw new Exception("Array limit is out of bounds.");
         limit *= 2;
         this.array = Arrays.copyOf(this.array, limit);
     }
