@@ -1,7 +1,7 @@
 package Lab1.Collections.Collect.ListCollections;
 
 import Lab1.Collections.Collect.Nodes.ListNode;
-import Lab1.Collections.Queue;
+import Lab1.Collections.Collect.Queue;
 
 public class QueueList<T> implements Queue<T> {
     private ListNode<T> begin;
@@ -16,12 +16,13 @@ public class QueueList<T> implements Queue<T> {
     }
 
 
-    public void pushQ(T v) {
+    public QueueList<T> pushQ(T v) {
         this.end = list.push(end, v);
         if (this.begin == null) {
             this.begin = this.end;
         }
         this.size++;
+        return this;
     }
 
     public T peekQ() {

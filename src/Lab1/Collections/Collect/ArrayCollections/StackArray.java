@@ -1,6 +1,7 @@
 package Lab1.Collections.Collect.ArrayCollections;
 
-import Lab1.Collections.Stack;
+import Lab1.Collections.Collect.OversizeException;
+import Lab1.Collections.Collect.Stack;
 
 import java.util.Arrays;
 
@@ -38,7 +39,7 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     }
 
     @Override
-    public void pushS (T v) throws Exception {
+    public StackArray<T> pushS (T v) throws OversizeException {
         if (lastIndex < limit) {
             lastIndex++;
             this.array[lastIndex] = v;
@@ -48,11 +49,12 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
             this.doubleBounds();
             this.pushS(v);
         }
+        return this;
     }
 
-    private void doubleBounds() throws Exception{
-        if(limit / 2 > Integer.MAX_VALUE)
-            throw new Exception("Array limit is out of bounds.");
+    private void doubleBounds() throws OversizeException{
+        if(limit > Integer.MAX_VALUE / 2)
+            throw new OversizeException("Array limit is out of bounds.");
         limit *= 2;
         this.array = Arrays.copyOf(this.array, limit);
     }

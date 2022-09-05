@@ -1,9 +1,7 @@
 package Lab1.Collections.Collect.ListCollections;
 
 import Lab1.Collections.Collect.Nodes.ListNode;
-import Lab1.Collections.Stack;
-
-import java.util.Scanner;
+import Lab1.Collections.Collect.Stack;
 
 public class StackList<T> implements Stack<T> {
     private final ImplicitList<T> list;
@@ -28,12 +26,13 @@ public class StackList<T> implements Stack<T> {
         return this.size == 0;
     }
 
-    public void pushS(T t) {
+    public StackList<T> pushS(T t) {
         this.begin = list.push(begin, t);
         this.size++;
+        return this;
     }
 
-    public T peekS() {
+    public T peekS() throws NullPointerException {
         return list.peek(begin);
     }
 

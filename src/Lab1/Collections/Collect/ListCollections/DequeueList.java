@@ -1,8 +1,8 @@
 package Lab1.Collections.Collect.ListCollections;
 
 import Lab1.Collections.Collect.Nodes.DoubleListNode;
-import Lab1.Collections.Queue;
-import Lab1.Collections.Stack;
+import Lab1.Collections.Collect.Queue;
+import Lab1.Collections.Collect.Stack;
 
 public class DequeueList<T> implements Stack<T>, Queue<T> {
 
@@ -32,9 +32,10 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public void pushQ(T v) {
+    public DequeueList<T> pushQ(T v) {
         this.begin = list.pushFirst(begin, v);
         this.size++;
+        return this;
     }
 
     @Override
@@ -51,9 +52,10 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public void pushS(T v) {
+    public DequeueList<T> pushS(T v) {
         this.end = list.pushLast(end, v);
         this.size++;
+        return this;
     }
 
     @Override

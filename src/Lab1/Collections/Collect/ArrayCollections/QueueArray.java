@@ -1,6 +1,8 @@
 package Lab1.Collections.Collect.ArrayCollections;
 
-import Lab1.Collections.Queue;
+import Lab1.Collections.Collect.EmptyException;
+import Lab1.Collections.Collect.OversizeException;
+import Lab1.Collections.Collect.Queue;
 
 import java.util.Arrays;
 
@@ -69,7 +71,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
 
 
     @Override
-    public void pushQ(T v) throws Exception {
+    public QueueArray<T> pushQ(T v) throws OversizeException {
         if (!isFull()) {
             array[lastInQueue] = v;
             lastInQueue++;
@@ -81,22 +83,26 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
             this.doubleBounds();
             this.pushQ(v);
         }
+        return this;
     }
-    private void doubleBounds() throws Exception {
-        if (limit / 2 > Integer.MAX_VALUE)
-            throw new Exception("Array limit is out of bounds.");
+    private void doubleBounds() throws OversizeException {
+        if (limit > Integer.MAX_VALUE / 2)
+            throw new OversizeException("Array limit is out of bounds.");
         limit *= 2;
         this.array = Arrays.copyOf(this.array, limit);
     }
     @Override
-    public T peekQ() {
-        assert firstInQueue != -1;
+    public T peekQ() throws EmptyException {
+        if (isEmpty()) {
+            throw new EmptyException("Queue is empty");
+        }
         return array[firstInQueue];
     }
 
     @Override
-    public T popQ() {
-        assert !isEmpty();
+    public T popQ() throws EmptyException {
+       if (isEmpty())
+           throw new EmptyException("Queue is empty");
         size--;
         T result = array[firstInQueue];
         firstInQueue++;
