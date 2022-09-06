@@ -64,7 +64,7 @@ public class DequeueArray<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public DequeueArray<T> pushQ(T v) throws OversizeException {
+    public DequeueArray<T> PushBack(T v) throws OversizeException {
         begin--;
         checkBegin();
         array[begin] = v;
@@ -76,21 +76,21 @@ public class DequeueArray<T> implements Stack<T>, Queue<T> {
         }
     }
     @Override
-    public T peekQ() throws EmptyException {
+    public T peekBack() throws EmptyException {
         if (isEmpty())
             throw new EmptyException("Dequeue is empty");
         return array[begin];
     }
 
     @Override
-    public T popQ() throws EmptyException {
+    public T popBack() throws EmptyException {
         if (isEmpty())
             throw new EmptyException("Dequeue is empty");
         return array[begin++];
     }
 
     @Override
-    public DequeueArray<T> pushS(T v) throws OversizeException {
+    public DequeueArray<T> pushFront(T v) throws OversizeException {
         end++;
         checkEnd();
         array[end] = v;
@@ -102,14 +102,14 @@ public class DequeueArray<T> implements Stack<T>, Queue<T> {
         }
     }
     @Override
-    public T peekS() throws EmptyException{
+    public T peekFront() throws EmptyException{
         if (isEmpty())
             throw new EmptyException("Dequeue is empty");
         return array[end];
     }
 
     @Override
-    public T popS() throws EmptyException {
+    public T popFront() throws EmptyException {
         if (isEmpty())
             throw new EmptyException("Dequeue is empty");
         return array[end--];

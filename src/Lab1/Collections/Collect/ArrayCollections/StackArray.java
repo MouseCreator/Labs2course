@@ -39,7 +39,7 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     }
 
     @Override
-    public StackArray<T> pushS (T v) throws OversizeException {
+    public StackArray<T> pushFront(T v) throws OversizeException {
         if (lastIndex < limit) {
             lastIndex++;
             this.array[lastIndex] = v;
@@ -47,7 +47,7 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
         else {
             System.err.println("Stack out of bounds");
             this.doubleBounds();
-            this.pushS(v);
+            this.pushFront(v);
         }
         return this;
     }
@@ -60,13 +60,13 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     }
 
     @Override
-    public T peekS() {
+    public T peekFront() {
         assert !isEmpty();
         return array[lastIndex];
     }
 
     @Override
-    public T popS() {
+    public T popFront() {
         assert !isEmpty();
         return array[lastIndex--];
     }

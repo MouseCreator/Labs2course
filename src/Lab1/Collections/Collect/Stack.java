@@ -1,7 +1,7 @@
 package Lab1.Collections.Collect;
 
 public interface Stack<T> extends Collection<T> {
-    Stack<T> pushS(T v) throws OversizeException;
-    T peekS() throws EmptyException, NullPointerException;
-    T popS() throws EmptyException, NullPointerException;
+    Stack<T> pushFront(T v) throws OversizeException;
+    T peekFront() throws EmptyException, NullPointerException;
+    T popFront() throws EmptyException, NullPointerException;
 }

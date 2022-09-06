@@ -57,6 +57,6 @@ public class Line extends Figure {
         return false;
     }
     public boolean goesThrough(Circle circle) {
-        return false
+        return false;
     }
 }

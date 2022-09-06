@@ -32,19 +32,19 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public DequeueList<T> pushQ(T v) {
+    public DequeueList<T> PushBack(T v) {
         this.begin = list.pushFirst(begin, v);
         this.size++;
         return this;
     }
 
     @Override
-    public T peekQ() {
+    public T peekBack() {
         return list.peek(begin);
     }
 
     @Override
-    public T popQ() {
+    public T popBack() {
         T result = list.peek(begin);
         this.begin = list.pop(begin);
         this.size--;
@@ -52,19 +52,19 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public DequeueList<T> pushS(T v) {
+    public DequeueList<T> pushFront(T v) {
         this.end = list.pushLast(end, v);
         this.size++;
         return this;
     }
 
     @Override
-    public T peekS() {
+    public T peekFront() {
         return list.peek(end);
     }
 
     @Override
-    public T popS() {
+    public T popFront() {
         T result = list.peek(end);
         this.begin = list.pop(end);
         this.size--;

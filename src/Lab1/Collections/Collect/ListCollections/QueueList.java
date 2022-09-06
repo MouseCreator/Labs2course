@@ -16,7 +16,7 @@ public class QueueList<T> implements Queue<T> {
     }
 
 
-    public QueueList<T> pushQ(T v) {
+    public QueueList<T> PushBack(T v) {
         this.end = list.push(end, v);
         if (this.begin == null) {
             this.begin = this.end;
@@ -25,11 +25,11 @@ public class QueueList<T> implements Queue<T> {
         return this;
     }
 
-    public T peekQ() {
+    public T peekBack() {
         return list.peek(begin);
     }
 
-    public T popQ() {
+    public T popBack() {
         T result = list.peek(begin);
         this.begin = list.pop(begin);
         this.size--;

@@ -26,17 +26,17 @@ public class StackList<T> implements Stack<T> {
         return this.size == 0;
     }
 
-    public StackList<T> pushS(T t) {
+    public StackList<T> pushFront(T t) {
         this.begin = list.push(begin, t);
         this.size++;
         return this;
     }
 
-    public T peekS() throws NullPointerException {
+    public T peekFront() throws NullPointerException {
         return list.peek(begin);
     }
 
-    public T popS() throws NullPointerException {
+    public T popFront() throws NullPointerException {
         T result = list.peek(begin);
         this.begin = list.pop(begin);
         this.size--;
@@ -58,7 +58,7 @@ public class StackList<T> implements Stack<T> {
     protected static StackList<Double> fromDouble(double[] source) {
         StackList<Double> result = new StackList<>();
         for (int i = source.length - 1; i >= 0; i--) {
-            result.pushS(source[i]);
+            result.pushFront(source[i]);
         }
         return result;
     }

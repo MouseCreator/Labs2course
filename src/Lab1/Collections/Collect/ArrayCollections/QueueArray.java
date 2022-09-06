@@ -71,7 +71,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
 
 
     @Override
-    public QueueArray<T> pushQ(T v) throws OversizeException {
+    public QueueArray<T> PushBack(T v) throws OversizeException {
         if (!isFull()) {
             array[lastInQueue] = v;
             lastInQueue++;
@@ -81,7 +81,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
         else {
             System.err.println("Queue is out of bounds");
             this.doubleBounds();
-            this.pushQ(v);
+            this.PushBack(v);
         }
         return this;
     }
@@ -92,7 +92,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
         this.array = Arrays.copyOf(this.array, limit);
     }
     @Override
-    public T peekQ() throws EmptyException {
+    public T peekBack() throws EmptyException {
         if (isEmpty()) {
             throw new EmptyException("Queue is empty");
         }
@@ -100,7 +100,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
     }
 
     @Override
-    public T popQ() throws EmptyException {
+    public T popBack() throws EmptyException {
        if (isEmpty())
            throw new EmptyException("Queue is empty");
         size--;

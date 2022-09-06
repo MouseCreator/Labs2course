@@ -10,16 +10,16 @@ class DequeueArrayTest {
     @Test
     void pushQ() throws OversizeException {
         DequeueArray<Integer> deque = new DequeueArray<>(2);
-        deque.pushQ(2).
-                pushQ(3).
-                pushQ(4);
+        deque.PushBack(2).
+                PushBack(3).
+                PushBack(4);
         assertEquals(deque.toString(), "[ 4 3 2 ]");
     }
 
     @Test
     void pushS() throws OversizeException {
         DequeueArray<Integer> deque = new DequeueArray<>(2);
-        deque.pushS(2).pushS(3).pushS(4);
+        deque.pushFront(2).pushFront(3).pushFront(4);
         assertEquals(deque.toString(), "[ 2 3 4 ]");
     }
 
