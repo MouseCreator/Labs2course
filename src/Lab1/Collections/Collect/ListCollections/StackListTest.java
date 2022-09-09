@@ -6,13 +6,14 @@ class StackListTest {
     @Test
     void pushFront() {
         StackList<Integer> stack = new StackList<>();
+        stack.pushFront(6);
         stack.pushFront(5);
         stack.pushFront(4);
         stack.pushFront(3);
         stack.pushFront(2);
         stack.pushFront(1);
         stack.pushFront(0);
-        assertEquals("[ 0 1 2 3 4 5 ]", stack.toString());
+        assertEquals("[ 0 1 2 3 4 5 6 ]", stack.toString());
     }
 
     @Test
