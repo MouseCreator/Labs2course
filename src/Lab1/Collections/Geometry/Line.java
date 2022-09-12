@@ -4,6 +4,14 @@ public class Line extends Figure {
     private double k;
     private double b;
 
+    public Line(double k, double b) {
+        this.k = k;
+        this.b = b;
+    }
+    public Line() {
+        this.k = 0;
+        this.b = 0;
+    }
     public double getB() {
         return this.b;
     }
@@ -23,7 +31,7 @@ public class Line extends Figure {
     }
     @Override
     public String toEquation() {
-        return String.format("y = %. 2fx + % .2f", k, b);
+        return String.format("y = %.2fx + %.2f", k, b);
     }
     public boolean isParallelTo(Line other) {
         return Coordinates.doubleEquals(this.k, other.getK()) && !Coordinates.doubleEquals(this.b, other.getB());
@@ -38,16 +46,22 @@ public class Line extends Figure {
     }
     private Dot getDot(Line other) {
         Dot dot = new Dot();
-        dot.x = evaluateX(other);
-        dot.y = evaluateY(dot.x);
+        dot.x = evaluateIntersectPointX(other);
+        dot.y = evaluateIntersectPointY(dot.x);
         return dot;
     }
-    private double evaluateX(Line other) {
+    private double evaluateIntersectPointX(Line other) {
         return (other.getB() - this.b) / (this.k - other.getK());
     }
-    private double evaluateY(double x) {
+    private double evaluateIntersectPointY(double x) {
         return x * k + b;
     }
+
+    public double getYFromX(final double x) {
+        return k * x + b;
+    }
+
+
 
     public boolean goesThroughCenter(Circle circle) {
         Dot center = circle.getCenter();

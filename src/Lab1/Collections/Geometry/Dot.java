@@ -5,6 +5,7 @@ public class Dot {
     public double y;
 
     Dot(double x, double y) {
+        assert (Double.isFinite(x) && Double.isFinite(y));
         this.x = x;
         this.y = y;
     }
