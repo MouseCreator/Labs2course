@@ -36,7 +36,7 @@ public class Line extends Figure {
     public boolean isParallelTo(Line other) {
         return Coordinates.doubleEquals(this.k, other.getK()) && !Coordinates.doubleEquals(this.b, other.getB());
     }
-    public Dot intersectWithLine(Line other){
+    public Point intersectWithLine(Line other){
         if (isParallelTo(other)) {
             return null;
         }
@@ -44,11 +44,11 @@ public class Line extends Figure {
             return getDot(other);
         }
     }
-    private Dot getDot(Line other) {
-        Dot dot = new Dot();
-        dot.x = evaluateIntersectPointX(other);
-        dot.y = evaluateIntersectPointY(dot.x);
-        return dot;
+    private Point getDot(Line other) {
+        Point point = new Point();
+        point.x = evaluateIntersectPointX(other);
+        point.y = evaluateIntersectPointY(point.x);
+        return point;
     }
     private double evaluateIntersectPointX(Line other) {
         return (other.getB() - this.b) / (this.k - other.getK());
@@ -60,17 +60,11 @@ public class Line extends Figure {
     public double getYFromX(final double x) {
         return k * x + b;
     }
+    public Point getPointFromX(final double x) {
+        return new Point(x, getYFromX(x));
+    }
 
 
 
-    public boolean goesThroughCenter(Circle circle) {
-        Dot center = circle.getCenter();
-        return Coordinates.doubleEquals(center.y, center.x * k + b);
-    }
-    public boolean isTangent(Circle circle) {
-        return false;
-    }
-    public boolean goesThrough(Circle circle) {
-        return false;
-    }
+
 }

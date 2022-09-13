@@ -1,15 +1,15 @@
 package Lab1.Collections.Geometry;
 
-public class Dot {
+public class Point {
     public double x;
     public double y;
 
-    Dot(double x, double y) {
+    Point(double x, double y) {
         assert (Double.isFinite(x) && Double.isFinite(y));
         this.x = x;
         this.y = y;
     }
-    Dot() {
+    Point() {
         this. x = 0;
         this. y = 0;
     }
@@ -24,8 +24,8 @@ public class Dot {
             return true;
         if (this.getClass() != other.getClass())
             return false;
-        if (other instanceof Dot) {
-            Dot d = (Dot) other;
+        if (other instanceof Point) {
+            Point d = (Point) other;
             return Coordinates.doubleEquals(y, d.y) && Coordinates.doubleEquals(y, d.y);
         }
         return false;

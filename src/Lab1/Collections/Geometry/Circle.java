@@ -2,13 +2,13 @@ package Lab1.Collections.Geometry;
 
 public class Circle extends Figure{
     private double radius;
-    private Dot center;
+    private Point center;
 
-    public Dot getCenter() {
+    public Point getCenter() {
         return center;
     }
-    public void setCenter(Dot dot) {
-        this.center = dot;
+    public void setCenter(Point point) {
+        this.center = point;
     }
     public double getRadius() {
         return this.radius;
@@ -18,10 +18,10 @@ public class Circle extends Figure{
     }
 
     public Circle (double x, double y, double radius) {
-        this.center = new Dot(x, y);
+        this.center = new Point(x, y);
         this.radius = radius;
     }
-    public Circle(Dot dote, double radius) {
+    public Circle(Point dote, double radius) {
         this.center = dote;
         this.radius = radius;
     }
