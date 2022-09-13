@@ -26,7 +26,7 @@ public class Point {
             return false;
         if (other instanceof Point) {
             Point d = (Point) other;
-            return Coordinates.doubleEquals(y, d.y) && Coordinates.doubleEquals(y, d.y);
+            return Coordinates.doubleEquals(x, d.x) && Coordinates.doubleEquals(y, d.y);
         }
         return false;
     }

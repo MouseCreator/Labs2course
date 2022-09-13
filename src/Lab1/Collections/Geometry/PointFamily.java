@@ -9,7 +9,10 @@ public class PointFamily {
     public PointFamily() {
         this.points = new ArrayList<>();
     }
-
+    @Override
+    public String toString() {
+        return points.toString();
+    }
     @Override
     public boolean equals(Object other) {
         if (this == other)
@@ -32,8 +35,9 @@ public class PointFamily {
         return points.size();
     }
 
-    public void add(Point point) {
+    public PointFamily add(Point point) {
         points.add(point);
+        return this;
     }
 
     public Point get(int index) {

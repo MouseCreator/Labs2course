@@ -28,4 +28,26 @@ class CoordinatesTest {
         expected.clear();
         assertEquals(expected, intersection);
     }
+
+    @Test
+    void intersectsCircleCircle() {
+        Circle circle1 = new Circle(7, 12, 5);
+        Circle circle2 = new Circle(10, 6, 3);
+        PointFamily intersection = Coordinates.intersectsCircleCircle(circle1, circle2);
+        PointFamily expected = new PointFamily();
+        expected.add(new Point(7.173, 7.003)).add(new Point(10.894, 8.864));
+        assertEquals(expected, intersection);
+    }
+    @Test
+    void isTangentTest() {
+        Circle circle1 = new Circle(7, 12, 5);
+        Circle circle2 = new Circle(7, 4, 3);
+        Circle circle3 = new Circle(7, 4, 4);
+        Line line = new Line(0, 1);
+
+        assertTrue(Coordinates.isTangent(circle1, circle2));
+        assertTrue(Coordinates.isTangent(line , circle2));
+        assertFalse(Coordinates.isTangent(circle2, circle3));
+        assertFalse(Coordinates.isTangent(line, circle1));
+    }
 }
