@@ -50,4 +50,13 @@ class CoordinatesTest {
         assertFalse(Coordinates.isTangent(circle2, circle3));
         assertFalse(Coordinates.isTangent(line, circle1));
     }
+    @Test
+    void intersects() {
+        GenLine line1 = new GenLine(2, 4, -6);
+        GenLine line2 = new GenLine(3, -1,5);
+        Point expected = new Point(-1, 2);
+        PointFamily family = new PointFamily();
+        family.add(expected);
+        assertEquals(family, Coordinates.intersects(line1, line2));
+    }
 }

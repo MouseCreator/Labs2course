@@ -99,4 +99,19 @@ public class Coordinates {
             }
         }
     }
+
+    public static boolean isParallel(GenLine line1, GenLine line2) {
+        return Coordinates.doubleEquals(line1.a() / line2.a(), line1.b() / line2.b());
+    }
+    public static PointFamily intersects(GenLine line1, GenLine line2) {
+
+        PointFamily family = new PointFamily();
+
+        if (!isParallel(line1, line2)) {
+            double intersectX = (line1.c() * line2.b() / line1.b() - line2.c()) / (line2.a() - line1.a() * line2.b() / line1.b());
+            family.add(line2.pointFromX(intersectX));
+        }
+
+        return family;
+    }
 }

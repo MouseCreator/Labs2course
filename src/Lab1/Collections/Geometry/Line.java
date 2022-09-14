@@ -2,6 +2,7 @@ package Lab1.Collections.Geometry;
 
 public class Line extends Figure {
     private double k;
+
     private double b;
 
     public Line(double k, double b) {

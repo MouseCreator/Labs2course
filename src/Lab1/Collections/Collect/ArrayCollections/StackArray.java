@@ -11,7 +11,7 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     private int limit;
     private T[] array;
     public StackArray() {
-        limit = 1024;
+        limit = 128;
         lastIndex = -1;
         initArray();
     }

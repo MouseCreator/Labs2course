@@ -48,6 +48,10 @@ public class PointFamily {
         return points.remove(index);
     }
 
+    public Point peek() {
+        return points.get(0);
+    }
+
     public boolean remove(Point point) {
         return points.remove(point);
     }

@@ -5,14 +5,14 @@ import Lab1.Collections.Collect.OversizeException;
 import Lab1.Collections.Collect.Stack;
 import Lab1.Collections.Collect.Queue;
 
-public class DequeueArray<T> implements Stack<T>, Queue<T> {
+public class DequeueArray<T> implements Stack<T>, Queue<T>  {
     private int limit;
     private T[] array;
     private int begin;
     private int end;
 
     public DequeueArray() {
-        this.limit = 1024;
+        this.limit = 128;
         this.initArray();
         this.initPointers();
     }
