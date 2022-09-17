@@ -3,6 +3,10 @@ package Lab1.Collections.Geometry;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * PointFamily is a structure, that contains 0 or several points
+ * Was implemented to avoid using Point arrays and returning null from public methods of other classes
+ */
 public class PointFamily {
     private ArrayList<Point> points;
 

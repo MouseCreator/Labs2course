@@ -58,5 +58,21 @@ class CoordinatesTest {
         PointFamily family = new PointFamily();
         family.add(expected);
         assertEquals(family, Coordinates.intersects(line1, line2));
+
+        family.clear();
+        //is parallel to line1
+        line2.set(4, 8, 10);
+        assertEquals(new PointFamily(), Coordinates.intersects(line1, line2));
+
+        //is parallel X axis
+        line1.set(1, 0, -2);
+        family.add(new Point(2, -2.25));
+        assertEquals(family, Coordinates.intersects(line1, line2));
+
+        family.clear();
+        //is parallel Y axis
+        line1.set(0, 1, -2);
+        family.add(new Point(-6.5, 2));
+        assertEquals(family, Coordinates.intersects(line1, line2));
     }
 }

@@ -101,6 +101,12 @@ public class Coordinates {
     }
 
     public static boolean isParallel(GenLine line1, GenLine line2) {
+        if (line1.a() == line2.a() && line2.a() == 0) {
+            return true;
+        }
+        if (line1.b() == line2.b() && line2.b() == 0) {
+            return true;
+        }
         return Coordinates.doubleEquals(line1.a() / line2.a(), line1.b() / line2.b());
     }
     public static PointFamily intersects(GenLine line1, GenLine line2) {
@@ -108,8 +114,20 @@ public class Coordinates {
         PointFamily family = new PointFamily();
 
         if (!isParallel(line1, line2)) {
-            double intersectX = (line1.c() * line2.b() / line1.b() - line2.c()) / (line2.a() - line1.a() * line2.b() / line1.b());
-            family.add(line2.pointFromX(intersectX));
+            double intersectX;
+            if (line1.b() == 0) {
+                intersectX = -line1.c() / line1.a();
+                family.add(line2.pointFromX(intersectX));
+            }
+            else if (line2.b() == 0) {
+                intersectX = -line2.c() / line2.a();
+                family.add(line1.pointFromX(intersectX));
+            }
+            else {
+                intersectX = (line1.c() * line2.b() / line1.b() - line2.c()) / (line2.a() - line1.a() * line2.b() / line1.b());
+                family.add(line2.pointFromX(intersectX));
+            }
+
         }
 
         return family;
