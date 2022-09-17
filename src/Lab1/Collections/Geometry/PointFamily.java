@@ -1,7 +1,6 @@
 package Lab1.Collections.Geometry;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * PointFamily is a structure, that contains 0 or several points
@@ -13,6 +12,11 @@ public class PointFamily {
     public PointFamily() {
         this.points = new ArrayList<>();
     }
+    public PointFamily(Point... points) {
+        this.points = new ArrayList<>();
+        for (Point p : points)
+            this.add(p);
+    }
     @Override
     public String toString() {
         return points.toString();
@@ -23,8 +27,7 @@ public class PointFamily {
             return true;
         if (this.getClass() != other.getClass())
             return false;
-        if (other instanceof PointFamily) {
-            PointFamily family = (PointFamily) other;
+        if (other instanceof PointFamily family) {
             if (family.size() == this.size()) {
                 for (int i = 0; i < family.size(); i++) {
                     if (!this.get(i).equals(family.get(i)))
@@ -41,6 +44,10 @@ public class PointFamily {
 
     public PointFamily add(Point point) {
         points.add(point);
+        return this;
+    }
+    public PointFamily add(double x, double y) {
+        points.add(new Point(x, y));
         return this;
     }
 

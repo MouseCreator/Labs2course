@@ -10,36 +10,14 @@ public class Coordinates {
     public static double distance(Point point1, Point point2) {
         return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
     }
-    private static double[] solveQuadraticEquation(double a, double b, double c) {
-        double disc = getDiscriminant(a, b, c);
-        return getRoots(a, b, disc);
-    }
-    private static double getDiscriminant(double a, double b, double c) {
-        return b * b - 4 * a * c;
-    }
-    private static double[] getRoots(double a, double b, double disc) {
-        double[] result = new double[2];
-        result[0] = getRoot1(a, b, disc);
-        result[1] = getRoot2(a, b, disc);
-        return result;
-    }
-    private static double getRoot1(double a, double b, double disc) {
-        double sqrtDiscriminant = Math.sqrt(disc);
-        if (Double.isNaN(sqrtDiscriminant)) {
-            return Double.NaN;
-        }
-        return (-b - sqrtDiscriminant) / 2 / a;
-    }
-    private static double getRoot2(double a, double b, double disc) {
-        return (-b + Math.sqrt(disc)) / 2 / a;
-    }
+
     public static PointFamily intersectsLineCircle(Line line, Circle circle) {
         double k = line.getK();
         double b = line.getB();
         double centerX = circle.getCenter().x;
         double centerY = circle.getCenter().y;
         double radius = circle.getRadius();
-        double[] solution = solveQuadraticEquation(Math.pow(k, 2) + 1, 2*(k*b-k*centerY-centerX),
+        double[] solution = CoordinatesMath.solveQuadraticEquation(Math.pow(k, 2) + 1, 2*(k*b-k*centerY-centerX),
                 Math.pow((b-centerY),2)-Math.pow(radius,2)+Math.pow(centerX,2));
         PointFamily points = dotsFromXs(solution, line);
         points.removeDuplicates();
@@ -47,13 +25,34 @@ public class Coordinates {
 
     }
     private static PointFamily dotsFromXs(final double[] xCoordinates, final Line line) {
-        int length = xCoordinates.length;
 
         PointFamily points = new PointFamily();
 
         for (double xCoordinate : xCoordinates) {
             if (Double.isFinite(xCoordinate)) {
                 points.add(line.getPointFromX(xCoordinate));
+            }
+        }
+        return points;
+    }
+    private static PointFamily dotsFromXs(final double[] xCoordinates, final GenLine line) {
+
+        PointFamily points = new PointFamily();
+
+        for (double xCoordinate : xCoordinates) {
+            if (Double.isFinite(xCoordinate)) {
+                points.add(line.pointFromX(xCoordinate));
+            }
+        }
+        return points;
+    }
+    private static PointFamily dotsFromYs(final double[] yCoordinates, final GenLine line) {
+
+        PointFamily points = new PointFamily();
+
+        for (double yCoordinate : yCoordinates) {
+            if (Double.isFinite(yCoordinate)) {
+                points.add(line.pointFromY(yCoordinate));
             }
         }
         return points;
@@ -131,5 +130,37 @@ public class Coordinates {
         }
 
         return family;
+    }
+
+    public static PointFamily intersects(GenLine line, Circle circle) {
+
+        double a = line.a();
+        double b = line.b();
+        double c = line.c();
+        double centerX = circle.getCenter().x;
+        double centerY = circle.getCenter().y;
+        double radius = circle.getRadius();
+        if (b != 0) {
+            double x2 = 1 + Math.pow(a / b, 2);
+            double x1 = -2 * centerX + 2 * a * centerY / b + 2 * a * c / Math.pow(b, 2);
+            double x0 =
+                    Math.pow(centerX, 2) + Math.pow(c / b, 2) + 2 * c * centerY / b + Math.pow(centerY, 2) - Math.pow(radius, 2);
+            double[] solution = CoordinatesMath.solveQuadraticEquation(x2, x1, x0);
+            PointFamily points = dotsFromXs(solution, line);
+            points.removeDuplicates();
+            return points;
+        }
+        else {
+            double y2 = 1;
+            double y1 = -2 * centerY;
+            double y0 = Math.pow(centerY, 2) - Math.pow(radius, 2) + Math.pow(centerX + c/a, 2);
+
+            double[] solution = CoordinatesMath.solveQuadraticEquation(y2, y1, y0);
+            PointFamily points = dotsFromYs(solution, line);
+            points.removeDuplicates();
+            return points;
+        }
+
+
     }
 }

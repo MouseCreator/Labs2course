@@ -35,7 +35,7 @@ class CoordinatesTest {
         Circle circle2 = new Circle(10, 6, 3);
         PointFamily intersection = Coordinates.intersectsCircleCircle(circle1, circle2);
         PointFamily expected = new PointFamily();
-        expected.add(new Point(7.173, 7.003)).add(new Point(10.894, 8.864));
+        expected.add(7.173, 7.003).add(10.894, 8.864);
         assertEquals(expected, intersection);
     }
     @Test
@@ -52,27 +52,29 @@ class CoordinatesTest {
     }
     @Test
     void intersects() {
-        GenLine line1 = new GenLine(2, 4, -6);
-        GenLine line2 = new GenLine(3, -1,5);
-        Point expected = new Point(-1, 2);
-        PointFamily family = new PointFamily();
-        family.add(expected);
-        assertEquals(family, Coordinates.intersects(line1, line2));
-
-        family.clear();
-        //is parallel to line1
-        line2.set(4, 8, 10);
-        assertEquals(new PointFamily(), Coordinates.intersects(line1, line2));
-
-        //is parallel X axis
-        line1.set(1, 0, -2);
-        family.add(new Point(2, -2.25));
-        assertEquals(family, Coordinates.intersects(line1, line2));
-
-        family.clear();
-        //is parallel Y axis
-        line1.set(0, 1, -2);
-        family.add(new Point(-6.5, 2));
-        assertEquals(family, Coordinates.intersects(line1, line2));
+        //two lines intersect
+        assertEquals(new PointFamily(new Point(-1, 2)),
+                Coordinates.intersects(new GenLine(2, 4 , -6), new GenLine(3, -1, 5)));
+        //two lines are parallel
+        assertEquals(new PointFamily(),
+                Coordinates.intersects(new GenLine(2, 4 , -6), new GenLine(4, 8, 10)));
+        //test for b == 0 case
+        assertEquals(new PointFamily(new Point(2, -2.25)),
+                Coordinates.intersects(new GenLine(1, 0 , -2), new GenLine(4, 8, 10)));
+        //test for a == 0 case
+        assertEquals(new PointFamily(new Point(-6.5, 2)),
+                Coordinates.intersects(new GenLine(0, 1 , -2), new GenLine(4, 8, 10)));
+        //line is tangent to circle
+        assertEquals(new PointFamily(new Point(3, 3)),
+                Coordinates.intersects(new GenLine(0, 2 , -6), new Circle(3, 1, 2)));
+        //line goes through  circle (b == 0)
+        assertEquals(new PointFamily(new Point(3, 0.764), new Point(3, 5.236)),
+                Coordinates.intersects(new GenLine(1, 0 , -3), new Circle(1, 3, 3)));
+        //line goes through circle (b != 0)
+        assertEquals(new PointFamily(new Point(1.03, -2.243), new Point(2.97, -1.757)),
+                Coordinates.intersects(new GenLine(1, -4 , -10), new Circle(2, -2, 1)));
+        //line passes by circle
+        assertEquals(new PointFamily(),
+                Coordinates.intersects(new GenLine(5, 4 , 0), new Circle(4, -2, 1)));
     }
 }

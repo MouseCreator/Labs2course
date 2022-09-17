@@ -37,7 +37,12 @@ public class GenLine extends Figure{
     }
 
     public Point pointFromX(double x) {
+        assert b != 0;
         return new Point(x, -(a*x+c)/b);
+    }
+    public Point pointFromY(double y) {
+        assert a != 0;
+        return new Point(-(b*y+c)/a, y);
     }
     @Override
     public String toString() {
