@@ -9,6 +9,7 @@ public class Line extends Figure {
         this.k = k;
         this.b = b;
     }
+
     public Line() {
         this.k = 0;
         this.b = 0;
@@ -64,6 +65,7 @@ public class Line extends Figure {
     public Point getPointFromX(final double x) {
         return new Point(x, getYFromX(x));
     }
+
 
 
 

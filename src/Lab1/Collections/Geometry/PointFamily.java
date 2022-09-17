@@ -102,6 +102,8 @@ public class PointFamily {
     public void clear() {
         this.points.clear();
     }
+
+    public boolean isEmpty() { return this.size() == 0; }
     public void set(int index, Point point) {
         this.points.set(index, point);
     }

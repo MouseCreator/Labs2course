@@ -89,6 +89,12 @@ class CoordinatesTest {
     }
     @Test
     void symmetryTest() {
+        //Circle symmetry
         assertEquals(new Circle(-2, -4, 1), symmetry(new GenLine(1, 2, 0), new Circle(2, 4, 1)));
+        //Parallel lines
+        assertEquals(new GenLine(1,-2,1), symmetry(new GenLine(2, -4, 6), new GenLine(1, -2, 5)));
+        assertEquals(new GenLine(1,0,-6), symmetry(new GenLine(2, 0, -8), new GenLine(1, 0, -2)));
+        //Intersecting lines
+        assertEquals(new GenLine(-2, 5, 2), symmetry(new GenLine(3, -4, -2), new GenLine(4, -3, -2)));
     }
 }

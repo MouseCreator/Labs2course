@@ -168,25 +168,45 @@ public abstract class Coordinates {
     public static GenLine orthogonalTo(GenLine line, Point goesThrough) {
         return new GenLine(line.b(), -line.a(), -(line.b()*goesThrough.x - line.a() * goesThrough.y));
     }
+    public static Vector2D orthogonalTo(Vector2D vector) {
+        double cord1 = vector.y;
+        double cord2 = -vector.x;
+        return new Vector2D(cord1, cord2);
+    }
 
     public static Circle symmetry(GenLine from, Circle of) {
         GenLine orthogonal = orthogonalTo(from, of.getCenter());
 
-        Point middle = intersectionPoint(from, orthogonal);
+        Point middle = intersects(from, orthogonal).peek();
 
         Point newCenter = symmetry(middle, of.getCenter());
 
         return new Circle(newCenter, of.getRadius());
     }
 
-    public static Point symmetry(Point from, Point of) {
-        Point delta = CoordinatesMath.subtract(of, from);
-        delta = CoordinatesMath.opposite(delta);
-        return CoordinatesMath.add(from, delta);
+    public static Point symmetry(Point center, Point origin) {
+        Vector2D delta = new Vector2D(origin, center);
+        return CoordinatesMath.move(center, delta);
     }
-    private static Point intersectionPoint(GenLine line1, GenLine line2) {
-        PointFamily family = intersects(line1, line2);
-        assert family.size() == 1;
-        return family.peek();
+    public static GenLine symmetry(GenLine center, GenLine origin) {
+        if (Coordinates.isParallel(center, origin)) {
+            return buildParallelLine(center, origin);
+        }
+        else {
+            return buildReflectedLine(center, origin);
+        }
+    }
+    private static GenLine buildParallelLine(GenLine center, GenLine origin) {
+       double delta = center.normalizedLine().c() - origin.normalizedLine().c();
+       double c = center.normalizedLine().c() + delta;
+       return new GenLine(center.normalizedLine().a(), center.normalizedLine().b(), c);
+    }
+    private static GenLine buildReflectedLine(GenLine center, GenLine origin) {
+       Point intersection = Coordinates.intersects(center, origin).peek();
+       Vector2D originVector = origin.getVector();
+       Vector2D centerVector = center.getVector();
+       Vector2D delta = CoordinatesMath.subtract(centerVector, originVector);
+       Vector2D reflection = CoordinatesMath.add(centerVector, delta);
+       return new GenLine(reflection, intersection);
     }
 }
