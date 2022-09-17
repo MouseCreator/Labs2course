@@ -1,7 +1,7 @@
 package Lab1.Collections.Geometry;
 
 
-public class Coordinates {
+public abstract class Coordinates {
     private static final double delta = 0.001;
     public static boolean doubleEquals(double a, double b) {
         return Math.abs(a - b) < delta;
@@ -163,5 +163,30 @@ public class Coordinates {
     }
     public static boolean goesThroughCenter(final GenLine line, final Circle circle) {
         return Coordinates.doubleEquals(circle.getCenter().x * line.a() + circle.getCenter().y * line.b() + line.c(), 0.0);
+    }
+
+    public static GenLine orthogonalTo(GenLine line, Point goesThrough) {
+        return new GenLine(line.b(), -line.a(), -(line.b()*goesThrough.x - line.a() * goesThrough.y));
+    }
+
+    public static Circle symmetry(GenLine from, Circle of) {
+        GenLine orthogonal = orthogonalTo(from, of.getCenter());
+
+        Point middle = intersectionPoint(from, orthogonal);
+
+        Point newCenter = symmetry(middle, of.getCenter());
+
+        return new Circle(newCenter, of.getRadius());
+    }
+
+    public static Point symmetry(Point from, Point of) {
+        Point delta = CoordinatesMath.subtract(of, from);
+        delta = CoordinatesMath.opposite(delta);
+        return CoordinatesMath.add(from, delta);
+    }
+    private static Point intersectionPoint(GenLine line1, GenLine line2) {
+        PointFamily family = intersects(line1, line2);
+        assert family.size() == 1;
+        return family.peek();
     }
 }

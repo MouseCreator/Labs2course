@@ -24,10 +24,7 @@ public class Point {
             return true;
         if (this.getClass() != other.getClass())
             return false;
-        if (other instanceof Point) {
-            Point d = (Point) other;
-            return Coordinates.doubleEquals(x, d.x) && Coordinates.doubleEquals(y, d.y);
-        }
-        return false;
+        Point d = (Point) other;
+        return Coordinates.doubleEquals(x, d.x) && Coordinates.doubleEquals(y, d.y);
     }
 }

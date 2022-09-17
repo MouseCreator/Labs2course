@@ -33,6 +33,15 @@ public class Circle extends Figure{
     public String toEquation() {
         return String.format("(x - . 2%f)^2 + (y - . 2%f)^2 = . 2%f", center.x, center.y, radius);
     }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other)
+            return true;
+        if (this.getClass() != other.getClass())
+            return false;
+        Circle c = (Circle) other;
+        return Coordinates.doubleEquals(c.radius, radius) && c.center.equals(center);
+    }
 
     public boolean contains(Point point) {
         double x = point.x;

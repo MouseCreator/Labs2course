@@ -2,6 +2,7 @@ package Lab1.Collections.Geometry;
 
 import org.junit.jupiter.api.Test;
 
+import static Lab1.Collections.Geometry.Coordinates.symmetry;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -85,5 +86,9 @@ class CoordinatesTest {
 
         assertTrue(Coordinates.goesThroughCenter(line1, circle));
         assertFalse(Coordinates.goesThroughCenter(line2, circle));
+    }
+    @Test
+    void symmetryTest() {
+        assertEquals(new Circle(-2, -4, 1), symmetry(new GenLine(1, 2, 0), new Circle(2, 4, 1)));
     }
 }

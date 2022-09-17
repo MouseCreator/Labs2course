@@ -21,6 +21,16 @@ public class CoordinatesMath {
         }
         return (-b - sqrtDiscriminant) / 2 / a;
     }
+
+    public static Point add(final Point a, final Point b) {
+        return new Point(a.x + b.x, a.y + b.y);
+    }
+    public static Point subtract(final Point a, final Point b) {
+        return new Point(a.x - b.x, a.y - b.y);
+    }
+    public static Point opposite(final Point a) {
+        return subtract(new Point(0, 0), a);
+    }
     private static double getRoot2(double a, double b, double disc) {
         return (-b + Math.sqrt(disc)) / 2 / a;
     }
