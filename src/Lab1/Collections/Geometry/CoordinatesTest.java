@@ -51,7 +51,7 @@ class CoordinatesTest {
         assertFalse(Coordinates.isTangent(line, circle1));
     }
     @Test
-    void intersects() {
+    void intersectsTest() {
         //two lines intersect
         assertEquals(new PointFamily(new Point(-1, 2)),
                 Coordinates.intersects(new GenLine(2, 4 , -6), new GenLine(3, -1, 5)));
@@ -76,5 +76,14 @@ class CoordinatesTest {
         //line passes by circle
         assertEquals(new PointFamily(),
                 Coordinates.intersects(new GenLine(5, 4 , 0), new Circle(4, -2, 1)));
+    }
+    @Test
+    void goesThroughCenterTest() {
+        Circle circle = new Circle(4, 2, 1);
+        GenLine line1 = new GenLine(-1, 1, 2);
+        GenLine line2 = new GenLine(-2, 2, 3);
+
+        assertTrue(Coordinates.goesThroughCenter(line1, circle));
+        assertFalse(Coordinates.goesThroughCenter(line2, circle));
     }
 }

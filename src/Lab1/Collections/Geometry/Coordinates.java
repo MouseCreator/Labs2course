@@ -132,7 +132,7 @@ public class Coordinates {
         return family;
     }
 
-    public static PointFamily intersects(GenLine line, Circle circle) {
+    public static PointFamily intersects(final GenLine line, final Circle circle) {
 
         double a = line.a();
         double b = line.b();
@@ -160,7 +160,8 @@ public class Coordinates {
             points.removeDuplicates();
             return points;
         }
-
-
+    }
+    public static boolean goesThroughCenter(final GenLine line, final Circle circle) {
+        return Coordinates.doubleEquals(circle.getCenter().x * line.a() + circle.getCenter().y * line.b() + line.c(), 0.0);
     }
 }
