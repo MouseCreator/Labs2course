@@ -27,12 +27,12 @@ public class OrientedGraphMatrix<T> {
     }
     public void addNode(T value) {
         int index = nodeIndexList.getFirstFree();
-        if (!indexOutOfBounds(index)) {
+        if (indexInBounds(index)) {
             nodeIndex.put(value, index);
             nodeIndexList.reserve(index);
         }
     }
-    private boolean indexOutOfBounds(int index) {
+    private boolean indexInBounds(int index) {
         return index < 0 || index >= maxNodes;
     }
     public void removeNode(T value) {
@@ -54,15 +54,15 @@ public class OrientedGraphMatrix<T> {
         return hasNode(value) ? nodeIndex.get(value) : -1;
     }
     private void setWeight(int index1, int index2, int weight) {
-        assert !indexOutOfBounds(index1) && !indexOutOfBounds(index2);
+        assert indexInBounds(index1) && indexInBounds(index2);
         edges[index1][index2] = weight;
     }
     private int getWeight(int index1, int index2) {
-        assert !indexOutOfBounds(index1) && !indexOutOfBounds(index2);
+        assert indexInBounds(index1) && indexInBounds(index2);
         return edges[index1][index2];
     }
 
-    private void removeEdge(T from, T to) {
+    public void removeEdge(T from, T to) {
         addEdge(from, to, NO_EDGE);
     }
 

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 public class GraphStructure<T> {
     HashMap<T, GraphNodeList<T>> nodes;
+
+    private final int NO_EDGE = 0;
     public GraphStructure() {
         this.nodes = new HashMap<>();
     }
@@ -61,6 +63,19 @@ public class GraphStructure<T> {
         for (T key : nodes.keySet()) {
             nodes.get(key).remove(node);
         }
+    }
+
+    public int getWeight(T from, T to) {
+        if (hasBoth(from, to)) {
+            return nodes.get(from).find(to).getWeight();
+        }
+        return NO_EDGE;
+    }
+    public boolean hasEdge(T from, T to) {
+        return getWeight(from, to) == NO_EDGE;
+    }
+    public boolean hasBoth(T from, T to) {
+        return nodes.containsKey(from) && nodes.containsKey(to);
     }
 
     @Override

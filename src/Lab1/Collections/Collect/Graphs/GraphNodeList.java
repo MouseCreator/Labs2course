@@ -16,7 +16,7 @@ public class GraphNodeList<T> {
     public void changeWeight(T value, int weight) {
         find(value).setWeight(weight);
     }
-    private GraphNode<T> find(T value) {
+    public GraphNode<T> find(T value) {
         for (int i = 0; i < edges.size(); i++) {
             if (edges.get(i).getValue().equals(value)) {
                 return edges.get(i);
