@@ -26,5 +26,10 @@ class OrientedGraphMatrixTest {
         //now i'm connected
         assertTrue(graph.isConnected());
 
+        assertFalse(graph.isStrongConnected());
+        graph.addEdge(4, 0);
+        graph.addEdge(3, 4);
+        assertTrue(graph.isStrongConnected());
+
     }
 }

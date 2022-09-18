@@ -37,6 +37,10 @@ public class OrientedGraphMatrix<T> {
     private boolean indexInBounds(int index) {
         return index >= 0 && index < maxNodes;
     }
+
+    public T[] getNodes() {
+        return (T[])nodeIndex.keySet().toArray();
+    }
     public void removeNode(T value) {
         if (hasNode(value)) {
             int index = nodeIndex.get(value);
@@ -89,10 +93,28 @@ public class OrientedGraphMatrix<T> {
         if (nodeIndexList.size() == 0) {
             return true;
         }
+        return isConnectedWithAll(0);
+    }
+
+    public boolean isConnectedWithAll(T value) {
+        if (nodeIndex.containsKey(value))
+            return isConnectedWithAll(nodeIndex.get(value));
+        return false;
+    }
+
+    private boolean isConnectedWithAll(int index) {
         boolean visited[] = new boolean[maxNodes];
-        DFS(visited, 0);
+        DFS(visited, index);
         for (int i = 0; i < maxNodes; i++) {
             if (nodeIndexList.isReserved(i) && !visited[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean isStrongConnected() {
+        for (T i : getNodes()) {
+            if(!isConnectedWithAll(i)) {
                 return false;
             }
         }
@@ -102,7 +124,7 @@ public class OrientedGraphMatrix<T> {
     private void DFS(boolean visited[], int current) {
         visited[current] = true;
         for (int i = 0; i < maxNodes; i++) {
-            if (edges[current][i] == NO_EDGE)
+            if (edges[current][i] == NO_EDGE || visited[i])
                 continue;
             DFS(visited, i);
         }

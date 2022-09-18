@@ -19,4 +19,5 @@ public class NotOrientedGraphMatrix<T> extends OrientedGraphMatrix<T>{
         super.changeEdgeWeight(from, to, weight);
         super.changeEdgeWeight(to, from, weight);
     }
+
 }
