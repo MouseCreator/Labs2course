@@ -2,14 +2,10 @@ package Lab1.Collections.Collect.Graphs;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphStructureOriented<T> {
+public class GraphStructureOriented<T> extends Graph<T>{
     HashMap<T, GraphNodeList<T>> nodes;
-
-    private final int NO_EDGE = 0;
-    private final int MIN_EDGE = 1;
     public GraphStructureOriented() {
         this.nodes = new HashMap<>();
     }
@@ -58,6 +54,7 @@ public class GraphStructureOriented<T> {
     }
 
     public void addNode(T value) {
+        assert !nodes.containsKey(value);
         nodes.put(value, new GraphNodeList<>());
     }
     public void removeNode(T value) {
@@ -90,13 +87,54 @@ public class GraphStructureOriented<T> {
 
     public boolean isConnectedWithAll(T node) {
         assert nodes.containsKey(node);
-        if (nodes.isEmpty()) {
-            return true;
-        }
         ArrayList<T> visitedNodes = new ArrayList<>();
         DFS(visitedNodes, node);
         return visitedNodes.size() == nodes.size();
     }
+
+    public int getDistance(T from, T to) {
+        HashMap<T, Integer> minDistance = new HashMap<>();
+        ArrayList<T> visited = new ArrayList<>();
+        intMinDistance(minDistance, from);
+        dijkstraAlgorithm(visited, minDistance);
+        return minDistance.get(to);
+    }
+
+    private void intMinDistance(HashMap<T, Integer> minDistance, T from) {
+        for (T key : nodes.keySet()) {
+            minDistance.put(key, INFINITE_WEIGHT);
+        }
+        minDistance.put(from, NO_EDGE);
+    }
+
+    private void dijkstraAlgorithm(ArrayList<T> visited, HashMap<T, Integer> minDistance) {
+        while (visited.size() < nodes.size()) {
+            T current = getMinDistance(minDistance, visited);
+            visited.add(current);
+            GraphNodeList<T> list = nodes.get(current);
+            for (int i = 0; i < list.size(); i++) {
+                T edgeTo = list.get(i);
+                if (minDistance.get(edgeTo) > minDistance.get(current) + getWeight(current, edgeTo)) {
+                    minDistance.put(edgeTo, minDistance.get(current) + getWeight(current, edgeTo));
+                }
+            }
+        }
+    }
+
+    private T getMinDistance(HashMap<T, Integer> minDistance, ArrayList<T> visited) {
+        int minWeight = INFINITE_WEIGHT;
+        T result = null;
+        for (T key : minDistance.keySet()) {
+            if (visited.contains(key))
+                continue;
+            if (minWeight > minDistance.get(key)) {
+                minWeight = minDistance.get(key);
+                result = key;
+            }
+        }
+        return result;
+    }
+
     public boolean isStrongConnected() {
         for (T key :nodes.keySet())
         {

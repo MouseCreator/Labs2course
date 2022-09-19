@@ -1,7 +1,7 @@
 package Lab1.Collections.Collect.Graphs;
 
 public class NodeIndexList {
-    private boolean[] nodes;
+    private final boolean[] nodes;
 
     private int size;
     public NodeIndexList(int size) {

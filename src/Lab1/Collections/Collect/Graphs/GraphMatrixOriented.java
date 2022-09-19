@@ -4,12 +4,9 @@ package Lab1.Collections.Collect.Graphs;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphMatrixOriented<T> {
+public class GraphMatrixOriented<T> extends Graph<T>{
     private final NodeIndexList nodeIndexList;
     private final int maxNodes;
-
-    private final static int NO_EDGE = 0;
-    private final static int MIN_EDGE = 1;
 
     public int noEdge() { return NO_EDGE; }
     public int minEdge() { return MIN_EDGE; }
@@ -99,16 +96,6 @@ public class GraphMatrixOriented<T> {
         return getWeight(from, to) == NO_EDGE;
     }
 
-    /**
-     *
-     * @return true if there is a path from the first node to any other node
-     */
-    public boolean isConnected() {
-        if (nodeIndexList.size() == 0) {
-            return true;
-        }
-        return isConnectedWithAll(0);
-    }
 
     /**
      *
@@ -121,8 +108,13 @@ public class GraphMatrixOriented<T> {
         return false;
     }
 
+    @Override
+    public int getDistance(T from, T to) {
+        return 0;
+    }
+
     private boolean isConnectedWithAll(int index) {
-        boolean visited[] = new boolean[maxNodes];
+        boolean[] visited = new boolean[maxNodes];
         DFS(visited, index);
         for (int i = 0; i < maxNodes; i++) {
             if (nodeIndexList.isReserved(i) && !visited[i]) {
@@ -145,7 +137,7 @@ public class GraphMatrixOriented<T> {
         return true;
     }
 
-    private void DFS(boolean visited[], int current) {
+    private void DFS(boolean[] visited, int current) {
         visited[current] = true;
         for (int i = 0; i < maxNodes; i++) {
             if (edges[current][i] == NO_EDGE || visited[i])

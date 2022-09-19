@@ -11,6 +11,11 @@ public class GraphStructureNotOriented<T> extends GraphStructureOriented<T> {
         super.addEdge(to, from, weight);
     }
     @Override
+    public void addEdge(T from, T to) {
+        super.addEdge(from, to);
+        super.addEdge(to, from);
+    }
+    @Override
     public void removeEdge(T from, T to) {
         super.removeEdge(from, to);
         super.removeEdge(to, from);

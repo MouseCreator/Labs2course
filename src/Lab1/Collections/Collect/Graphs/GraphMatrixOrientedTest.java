@@ -20,11 +20,11 @@ class GraphMatrixOrientedTest {
         graph.addEdge(0,2);
         graph.addEdge(1,3);
         //4 is isolated!
-        assertFalse(graph.isConnected());
+        assertFalse(graph.isConnectedWithAll(0));
 
         graph.addEdge(2, 4);
         //now i'm connected
-        assertTrue(graph.isConnected());
+        assertTrue(graph.isConnectedWithAll(0));
 
         assertFalse(graph.isStrongConnected());
         graph.addEdge(4, 0);
