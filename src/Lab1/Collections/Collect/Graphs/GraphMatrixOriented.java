@@ -113,7 +113,7 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         if (!hasBoth(from, to)) {
             return INFINITE_WEIGHT;
         }
-        boolean visited[] = new boolean[maxEstimatedSize()];
+        boolean[] visited = new boolean[maxEstimatedSize()];
         int[] minDistance = new int[maxEstimatedSize()];
         initMinDistance(minDistance, from);
         dijkstraAlgorithm(visited, minDistance);

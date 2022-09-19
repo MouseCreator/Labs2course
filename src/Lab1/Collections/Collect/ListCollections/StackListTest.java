@@ -27,15 +27,7 @@ class StackListTest {
         temp = stack.popFront();
         assertEquals(source[1], temp, 0.0001);
 
-        boolean hadException = false;
-
-        try {
-            stack.popFront();
-        }
-        catch (NullPointerException e) {
-            hadException = true;
-        }
-        assertEquals(true, hadException);
+        assertThrows(NullPointerException.class, () -> stack.popFront());
     }
 
 }
