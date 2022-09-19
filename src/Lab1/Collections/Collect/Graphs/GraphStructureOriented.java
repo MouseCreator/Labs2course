@@ -92,7 +92,17 @@ public class GraphStructureOriented<T> extends Graph<T>{
         return visitedNodes.size() == nodes.size();
     }
 
+    /**
+     *
+     * @param from is the node, from which the distance in to be found
+     * @param to is the node, to which the distance is to be found
+     * @return distance from {@param from} to {@param to} or
+     * INFINITE_WEIGHT if nodes are not connected or do not exist.
+     */
     public int getDistance(T from, T to) {
+        if (!hasBoth(from, to)) {
+            return INFINITE_WEIGHT;
+        }
         HashMap<T, Integer> minDistance = new HashMap<>();
         ArrayList<T> visited = new ArrayList<>();
         intMinDistance(minDistance, from);

@@ -38,7 +38,7 @@ public class GraphNodeList<T> {
                     append("->").
                     append(node.getValue().toString()).
                     append("; weight: ").
-                    append(node.getWeight());
+                    append(node.getWeight()).append("\n");
         }
         return builder.toString();
     }

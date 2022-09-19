@@ -8,9 +8,6 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private final NodeIndexList nodeIndexList;
     private final int maxNodes;
 
-    public int noEdge() { return NO_EDGE; }
-    public int minEdge() { return MIN_EDGE; }
-
     int[][] edges;
 
     HashMap<T, Integer> nodeIndex;
@@ -70,7 +67,9 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         assert indexInBounds(index1) && indexInBounds(index2);
         return edges[index1][index2];
     }
-
+    private boolean hasEdge(int index1, int index2) {
+        return getWeight(index1, index2) != NO_EDGE;
+    }
     public void removeEdge(T from, T to) {
         addEdge(from, to, NO_EDGE);
     }
@@ -107,16 +106,83 @@ public class GraphMatrixOriented<T> extends Graph<T>{
             return isConnectedWithAll(nodeIndex.get(value));
         return false;
     }
-
-    @Override
+    private boolean hasBoth(T from, T to) {
+        return hasNode(from) && hasNode(to);
+    }
     public int getDistance(T from, T to) {
-        return 0;
+        if (!hasBoth(from, to)) {
+            return INFINITE_WEIGHT;
+        }
+        boolean visited[] = new boolean[maxEstimatedSize()];
+        int[] minDistance = new int[maxEstimatedSize()];
+        initMinDistance(minDistance, from);
+        dijkstraAlgorithm(visited, minDistance);
+        return minDistance[nodeIndex.get(to)];
     }
 
+    private void initMinDistance(int[] minDistance, T from) {
+        Arrays.fill(minDistance, INFINITE_WEIGHT);
+        minDistance[nodeIndex.get(from)] = NO_EDGE;
+    }
+
+    private void dijkstraAlgorithm(boolean[] visited, int[] minDistance) {
+        while (notAllVisited(visited)) {
+            int i = getMinDistance(minDistance, visited);
+            visited[i] = true;
+            for (int j = 0; j < maxEstimatedSize(); j++) {
+                if (hasEdge(i, j)) {
+                    minDistance[j] = Math.min(minDistance[j], minDistance[i] + getWeight(i, j));
+                }
+            }
+        }
+    }
+    private boolean notAllVisited(boolean[] visited) {
+        for (boolean i : visited) {
+            if (!i)
+                return true;
+        }
+        return false;
+    }
+
+    private int getMinDistance(int[] minDistance, boolean[] visited) {
+        int result = 0;
+        int min = INFINITE_WEIGHT;
+        for (int i = 0; i < minDistance.length; i++) {
+            if (visited[i])
+                continue;
+            if (min > minDistance[i]) {
+                min = minDistance[i];
+                result = i;
+            }
+        }
+        return result;
+
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("Graph:\n");
+        for (T from : nodeIndex.keySet()) {
+           for (T to : nodeIndex.keySet()) {
+               if (hasEdge(from, to)) {
+                   builder.append(from)
+                           .append("->")
+                           .append(to)
+                           .append("; weight: ")
+                           .append(getWeight(from, to))
+                           .append("\n");
+               }
+           }
+        }
+        return builder.toString();
+    }
+    private int maxEstimatedSize() {
+        return this.nodeIndexList.maxIndex() + 1;
+    }
     private boolean isConnectedWithAll(int index) {
-        boolean[] visited = new boolean[maxNodes];
+        boolean[] visited = new boolean[maxEstimatedSize()];
         DFS(visited, index);
-        for (int i = 0; i < maxNodes; i++) {
+        for (int i = 0; i < maxEstimatedSize(); i++) {
             if (nodeIndexList.isReserved(i) && !visited[i]) {
                 return false;
             }
@@ -139,7 +205,7 @@ public class GraphMatrixOriented<T> extends Graph<T>{
 
     private void DFS(boolean[] visited, int current) {
         visited[current] = true;
-        for (int i = 0; i < maxNodes; i++) {
+        for (int i = 0; i < maxEstimatedSize(); i++) {
             if (edges[current][i] == NO_EDGE || visited[i])
                 continue;
             DFS(visited, i);
