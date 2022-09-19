@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrientedGraphMatrixTest {
+class GraphMatrixOrientedTest {
     @Test
     void isConnectedTest() {
-        OrientedGraphMatrix<Integer> graph = new OrientedGraphMatrix<>(5);
+        GraphMatrixOriented<Integer> graph = new GraphMatrixOriented<>(5);
 
         graph.addNode(0);
         graph.addNode(1);

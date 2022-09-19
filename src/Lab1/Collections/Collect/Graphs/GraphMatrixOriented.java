@@ -4,18 +4,21 @@ package Lab1.Collections.Collect.Graphs;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class OrientedGraphMatrix<T> {
+public class GraphMatrixOriented<T> {
     private final NodeIndexList nodeIndexList;
     private final int maxNodes;
 
-    private final int NO_EDGE = 0;
-    private final int MIN_EDGE = 1;
+    private final static int NO_EDGE = 0;
+    private final static int MIN_EDGE = 1;
+
+    public int noEdge() { return NO_EDGE; }
+    public int minEdge() { return MIN_EDGE; }
 
     int[][] edges;
 
     HashMap<T, Integer> nodeIndex;
 
-    public OrientedGraphMatrix(int maxNodes) {
+    public GraphMatrixOriented(int maxNodes) {
         this.maxNodes = maxNodes;
         nodeIndex = new HashMap<>();
         edges = new int[maxNodes][maxNodes];
@@ -79,6 +82,13 @@ public class OrientedGraphMatrix<T> {
         addEdge(from, to, weight);
     }
 
+
+    /**
+     *
+     * @param from node, from which edge is to be built
+     * @param to node, to which edge is to be built
+     * @return the value of weight between {@param from} and {@param to} or NO_EDGE if they are not connected.
+     */
     public int getWeight(T from, T to) {
         int index1 = getIndex(from);
         int index2 = getIndex(to);
@@ -89,6 +99,10 @@ public class OrientedGraphMatrix<T> {
         return getWeight(from, to) == NO_EDGE;
     }
 
+    /**
+     *
+     * @return true if there is a path from the first node to any other node
+     */
     public boolean isConnected() {
         if (nodeIndexList.size() == 0) {
             return true;
@@ -96,6 +110,11 @@ public class OrientedGraphMatrix<T> {
         return isConnectedWithAll(0);
     }
 
+    /**
+     *
+     * @param value: value of some node of the graph
+     * @return true if there is a path from {@param value} to any other node
+     */
     public boolean isConnectedWithAll(T value) {
         if (nodeIndex.containsKey(value))
             return isConnectedWithAll(nodeIndex.get(value));
@@ -112,6 +131,11 @@ public class OrientedGraphMatrix<T> {
         }
         return true;
     }
+
+    /**
+     *
+     * @return true if graph is strong connected, false - if it is not
+     */
     public boolean isStrongConnected() {
         for (T i : getNodes()) {
             if(!isConnectedWithAll(i)) {

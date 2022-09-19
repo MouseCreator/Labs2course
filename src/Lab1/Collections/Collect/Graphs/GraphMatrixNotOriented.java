@@ -1,14 +1,13 @@
 package Lab1.Collections.Collect.Graphs;
 
-public class NotOrientedGraphStructure<T> extends GraphStructure<T>{
-    public NotOrientedGraphStructure() {
-        super();
+public class GraphMatrixNotOriented<T> extends GraphMatrixOriented<T> {
+    public GraphMatrixNotOriented(int maxNodes) {
+        super(maxNodes);
     }
-
     @Override
     public void addEdge(T from, T to, int weight) {
         super.addEdge(from, to, weight);
-        super.addEdge(to, from, weight);
+        super.addEdge(from, to, weight);
     }
     @Override
     public void removeEdge(T from, T to) {
@@ -20,4 +19,5 @@ public class NotOrientedGraphStructure<T> extends GraphStructure<T>{
         super.changeEdgeWeight(from, to, weight);
         super.changeEdgeWeight(to, from, weight);
     }
+
 }

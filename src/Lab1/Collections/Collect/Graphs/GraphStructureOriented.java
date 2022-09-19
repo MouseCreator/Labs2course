@@ -1,13 +1,16 @@
 package Lab1.Collections.Collect.Graphs;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-public class GraphStructure<T> {
+public class GraphStructureOriented<T> {
     HashMap<T, GraphNodeList<T>> nodes;
 
     private final int NO_EDGE = 0;
-    public GraphStructure() {
+    private final int MIN_EDGE = 1;
+    public GraphStructureOriented() {
         this.nodes = new HashMap<>();
     }
 
@@ -19,6 +22,9 @@ public class GraphStructure<T> {
             assert !hasPair(from, to);
             addToExistingList(from, to, weight);
         }
+    }
+    public void addEdge(T from, T to) {
+        this.addEdge(from, to, MIN_EDGE);
     }
 
     private void createNewNodeList(T from, T to, int weight) {
@@ -76,6 +82,39 @@ public class GraphStructure<T> {
     }
     public boolean hasBoth(T from, T to) {
         return nodes.containsKey(from) && nodes.containsKey(to);
+    }
+
+    public T[] getNodes() {
+        return (T[])nodes.keySet().toArray();
+    }
+
+    public boolean isConnectedWithAll(T node) {
+        assert nodes.containsKey(node);
+        if (nodes.isEmpty()) {
+            return true;
+        }
+        ArrayList<T> visitedNodes = new ArrayList<>();
+        DFS(visitedNodes, node);
+        return visitedNodes.size() == nodes.size();
+    }
+    public boolean isStrongConnected() {
+        for (T key :nodes.keySet())
+        {
+            if (!isConnectedWithAll(key))
+                return false;
+        }
+        return true;
+    }
+
+    private void DFS(ArrayList<T> visited, T current) {
+        visited.add(current);
+        GraphNodeList<T> list = nodes.get(current);
+        for (int i = 0; i < list.size(); i++) {
+            T next = list.get(i);
+            if (visited.contains(next))
+                continue;
+            DFS(visited, next);
+        }
     }
 
     @Override

@@ -6,7 +6,9 @@ import java.util.LinkedList;
 
 public class GraphNodeList<T> {
     private LinkedList<GraphNode<T>> edges;
-
+    public GraphNodeList() {
+        edges = new LinkedList<>();
+    }
     public void add(T value, int weight) {
         edges.add(new GraphNode<T>(value, weight));
     }
@@ -39,5 +41,12 @@ public class GraphNodeList<T> {
                     append(node.getWeight());
         }
         return builder.toString();
+    }
+
+    public int size() {
+        return this.edges.size();
+    }
+    public T get(int i) {
+        return edges.get(i).getValue();
     }
 }
