@@ -71,7 +71,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
 
 
     @Override
-    public QueueArray<T> PushBack(T v) throws OversizeException {
+    public QueueArray<T> pushBack(T v) throws OversizeException {
         if (!isFull()) {
             array[lastInQueue] = v;
             lastInQueue++;
@@ -81,7 +81,7 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
         else {
             System.err.println("Queue is out of bounds");
             this.doubleBounds();
-            this.PushBack(v);
+            this.pushBack(v);
         }
         return this;
     }

@@ -2,6 +2,7 @@ package Lab1.Collections.Geometry;
 
 import org.junit.jupiter.api.Test;
 
+import static Lab1.Collections.Geometry.Coordinates.inversion;
 import static Lab1.Collections.Geometry.Coordinates.symmetry;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,5 +97,26 @@ class CoordinatesTest {
         assertEquals(new GenLine(1,0,-6), symmetry(new GenLine(2, 0, -8), new GenLine(1, 0, -2)));
         //Intersecting lines
         assertEquals(new GenLine(-2, 5, 2), symmetry(new GenLine(3, -4, -2), new GenLine(4, -3, -2)));
+    }
+    @Test
+    void inversionTest() {
+        Circle symmetryCenter = new Circle(3, 5, 4);
+
+        GenLine line1 = new GenLine(1, 0, -5);
+        GenLine line2 = new GenLine(1, 0, 5);
+        GenLine line3 = new GenLine(0, 1, -5);
+
+        Circle circle1 = new Circle(7, 5, 4);
+        Circle circle2 = new Circle(2, 5, 1);
+        Circle circle3 = new Circle(6, 5, 1);
+
+        assertEquals(circle1, inversion(symmetryCenter, line1));
+        assertEquals(circle2, inversion(symmetryCenter, line2));
+
+        assertEquals(line1, inversion(symmetryCenter, circle1));
+        assertEquals(line2, inversion(symmetryCenter, circle2));
+
+        assertEquals(line3, inversion(symmetryCenter, line3));
+        assertEquals(new Circle(3.5, 5, 2.25), inversion(symmetryCenter, circle3));
     }
 }

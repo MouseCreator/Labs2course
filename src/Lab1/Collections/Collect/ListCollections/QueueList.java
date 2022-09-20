@@ -16,7 +16,7 @@ public class QueueList<T> implements Queue<T> {
     }
 
 
-    public QueueList<T> PushBack(T v) {
+    public QueueList<T> pushBack(T v) {
         this.end = list.push(end, v);
         if (this.begin == null) {
             this.begin = this.end;

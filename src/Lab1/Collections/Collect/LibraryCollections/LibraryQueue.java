@@ -21,7 +21,7 @@ public class LibraryQueue<T> implements Lab1.Collections.Collect.Queue<T> {
     }
 
     @Override
-    public Lab1.Collections.Collect.Queue<T> PushBack(T v) {
+    public Lab1.Collections.Collect.Queue<T> pushBack(T v) {
         q.add(v);
         return this;
     }

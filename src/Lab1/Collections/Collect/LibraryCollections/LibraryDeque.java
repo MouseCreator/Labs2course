@@ -39,7 +39,7 @@ public class LibraryDeque<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public Queue<T> PushBack(T v){
+    public Queue<T> pushBack(T v){
         deque.addLast(v);
         return this;
     }

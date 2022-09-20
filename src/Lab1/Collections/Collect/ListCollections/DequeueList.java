@@ -32,7 +32,7 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
-    public DequeueList<T> PushBack(T v) {
+    public DequeueList<T> pushBack(T v) {
         this.begin = list.pushFirst(begin, v);
         this.size++;
         return this;

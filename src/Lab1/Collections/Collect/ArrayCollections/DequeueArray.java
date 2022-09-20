@@ -64,7 +64,7 @@ public class DequeueArray<T> implements Stack<T>, Queue<T>  {
     }
 
     @Override
-    public DequeueArray<T> PushBack(T v) throws OversizeException {
+    public DequeueArray<T> pushBack(T v) throws OversizeException {
         begin--;
         checkBegin();
         array[begin] = v;
