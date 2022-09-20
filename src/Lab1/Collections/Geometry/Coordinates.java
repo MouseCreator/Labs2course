@@ -230,12 +230,12 @@ public abstract class Coordinates {
 
 
     }
-    public static Circle inversion(Circle center, GenLine line) {
+    public static Figure inversion(Circle center, GenLine line) {
         if (!goesThroughCenter(line, center)) {
             return fromLineNotCrossingCenter(center, line);
         }
         else {
-            //TODO
+            return line;
         }
     }
     private static Circle fromLineNotCrossingCenter(Circle center, GenLine line) {
@@ -254,15 +254,28 @@ public abstract class Coordinates {
         return outer.contains(centerOf.getCenter());
     }
 
-    public static GenLine inversion(Circle center, Circle circle) {
+    public static Figure inversion(Circle center, Circle circle) {
         if (!goesThroughCenter(circle, center)) {
+            return fromCircleCrossingCenter(center, circle);
+        }
+        else {
             return fromCircleNotCrossingCenter(center, circle);
         }
     }
-    private static GenLine fromCircleNotCrossingCenter(Circle center, Circle circle) {
+    private static GenLine fromCircleCrossingCenter(Circle center, Circle circle) {
         Point origin = circle.opposite(center.getCenter());
         Point symmetric = Coordinates.inversion(center, origin);
         GenLine orthogonal = new GenLine(origin, symmetric);
         return Coordinates.orthogonalTo(orthogonal, symmetric);
+    }
+
+    private static Circle fromCircleNotCrossingCenter(Circle center, Circle circle) {
+        GenLine diameter = new GenLine(center.getCenter(), circle.getCenter());
+        PointFamily intersection = Coordinates.intersects(diameter, circle);
+        assert intersection.size() == 2;
+        PointFamily pointsOfSymmetricCircle = new PointFamily();
+        for (int i = 0; i < 2; i++)
+            pointsOfSymmetricCircle.add(inversion(center, intersection.get(i)));
+        return fromOppositePoints(pointsOfSymmetricCircle.get(0), pointsOfSymmetricCircle.get(1));
     }
 }
