@@ -209,4 +209,60 @@ public abstract class Coordinates {
        Vector2D reflection = CoordinatesMath.add(centerVector, delta);
        return new GenLine(reflection, intersection);
     }
+
+    public static Point split(Point point1, Point point2, double proportion) {
+        return new Point((point1.x + proportion * point2.x) / (1+proportion),
+                (point1.y + proportion * point2.y) / (1+proportion));
+    }
+    public static Point middlePoint(Point point1, Point point2) {
+        return split(point1, point2, 1);
+    }
+    public static Point inversion(Circle center, Point point) {
+        if (point.equals(center.getCenter()))
+            return new Point(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        double dist1 = distance(center.getCenter(), point);
+        double dist2 = Math.pow(center.getRadius(), 2) / dist1;
+
+        Vector2D vector = new Vector2D(center.getCenter(), point);
+        vector.multiplyBy(dist2/dist1);
+
+        return CoordinatesMath.move(center.getCenter(), vector);
+
+
+    }
+    public static Circle inversion(Circle center, GenLine line) {
+        if (!goesThroughCenter(line, center)) {
+            return fromLineNotCrossingCenter(center, line);
+        }
+        else {
+            //TODO
+        }
+    }
+    private static Circle fromLineNotCrossingCenter(Circle center, GenLine line) {
+        GenLine orthogonal = Coordinates.orthogonalTo(line, center.getCenter());
+        Point intersection = Coordinates.intersects(line, orthogonal).peek();
+        Point symmetric = inversion(center, intersection);
+        return fromOppositePoints(symmetric, center.getCenter());
+    }
+    private static Circle fromOppositePoints(Point point1, Point point2) {
+        Point center = middlePoint(point1, point2);
+        double radius = distance(center,point2);
+        return new Circle(center, radius);
+    }
+
+    public static boolean goesThroughCenter(Circle outer, Circle centerOf) {
+        return outer.contains(centerOf.getCenter());
+    }
+
+    public static GenLine inversion(Circle center, Circle circle) {
+        if (!goesThroughCenter(circle, center)) {
+            return fromCircleNotCrossingCenter(center, circle);
+        }
+    }
+    private static GenLine fromCircleNotCrossingCenter(Circle center, Circle circle) {
+        Point origin = circle.opposite(center.getCenter());
+        Point symmetric = Coordinates.inversion(center, origin);
+        GenLine orthogonal = new GenLine(origin, symmetric);
+        return Coordinates.orthogonalTo(orthogonal, symmetric);
+    }
 }

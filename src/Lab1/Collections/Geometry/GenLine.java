@@ -40,6 +40,10 @@ public class GenLine extends Figure{
         this.b = -vector.x;
         this.c = -(goesThrough.x * a + goesThrough.y * b);
     }
+
+    public GenLine(Point point1, Point point2) {
+        this(new Vector2D(point1, point2), point2);
+    }
     public Point pointFromX(double x) {
         assert b != 0;
         return new Point(x, -(a*x+c)/b);

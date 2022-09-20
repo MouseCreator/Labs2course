@@ -48,5 +48,8 @@ public class Circle extends Figure{
         double y = point.y;
         return Coordinates.doubleEquals(Math.pow(x - this.center.x, 2) + Math.pow(y - this.center.y, 2), Math.pow(radius, 2));
     }
+    public Point opposite(Point to) {
+        return CoordinatesMath.move(center, new Vector2D(to, center));
+    }
 
 }

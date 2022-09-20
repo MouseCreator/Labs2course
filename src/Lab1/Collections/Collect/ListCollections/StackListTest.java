@@ -27,7 +27,10 @@ class StackListTest {
         temp = stack.popFront();
         assertEquals(source[1], temp, 0.0001);
 
-        assertThrows(NullPointerException.class, () -> stack.popFront());
+
+        assertThrows(NullPointerException.class, ()-> {
+            double d =stack.popFront();
+        });
     }
 
 }
