@@ -88,6 +88,9 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
     private void doubleBounds() throws OversizeException {
         if (limit > Integer.MAX_VALUE / 2)
             throw new OversizeException("Array limit is out of bounds.");
+        if (lastInQueue == 0) {
+            lastInQueue = limit;
+        }
         limit *= 2;
         this.array = Arrays.copyOf(this.array, limit);
     }
@@ -113,9 +116,12 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
-        for (int i = firstInQueue; i != lastInQueue; i++) {
+        boolean loop = this.isFull();
+        for (int i = firstInQueue; i != lastInQueue || loop; i++) {
             if (i == limit) {
-                i = 0;
+                i = -1;
+                loop = false;
+                continue;
             }
             builder.append(" ");
             builder.append(array[i]);
