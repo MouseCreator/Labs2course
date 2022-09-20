@@ -9,10 +9,10 @@ class ImplicitList<T> {
         return toAdd;
     }
 
-    public T peek(ListNode<T> position) throws NullPointerException{
+    public T peek(ListNode<T> position){
         return position.getValue();
     }
-    public ListNode<T> pop(ListNode<T> position) throws NullPointerException{
+    public ListNode<T> pop(ListNode<T> position) {
         ListNode<T> nextNode = position.getNext();
         return nextNode;
     }

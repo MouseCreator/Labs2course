@@ -117,6 +117,6 @@ class CoordinatesTest {
         assertEquals(line2, inversion(symmetryCenter, circle2));
 
         assertEquals(line3, inversion(symmetryCenter, line3));
-        assertEquals(new Circle(3.5, 5, 2.25), inversion(symmetryCenter, circle3));
+        assertEquals(new Circle(9, 5, 2), inversion(symmetryCenter, circle3));
     }
 }
