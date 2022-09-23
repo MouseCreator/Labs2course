@@ -6,7 +6,7 @@ import Lab1.Collections.Collect.Queue;
 
 import java.util.Arrays;
 
-public class QueueArray<T> implements Queue<T>, ArrayCollection{
+public class QueueArray<T> extends ArrayCollection<T> implements Queue<T> {
     private int firstInQueue = 0;
 
     private int size = 0;
@@ -58,10 +58,6 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
     public boolean isEmpty() {
         return lastInQueue == firstInQueue && size == 0;
     }
-    @Override
-    public void fillWithRandomValues(int num) {
-
-    }
 
     @Override
     public int getSize() {
@@ -79,19 +75,19 @@ public class QueueArray<T> implements Queue<T>, ArrayCollection{
             size++;
         }
         else {
-            System.err.println("Queue is out of bounds");
             this.doubleBounds();
             this.pushBack(v);
         }
         return this;
     }
     private void doubleBounds() throws OversizeException {
-        if (limit > Integer.MAX_VALUE / 2)
+        if (limit * 2 > (ABSOLUTE_ELEMENT_LIMIT))
             throw new OversizeException("Array limit is out of bounds.");
         if (lastInQueue == 0) {
             lastInQueue = limit;
         }
         limit *= 2;
+        System.out.println(limit);
         this.array = Arrays.copyOf(this.array, limit);
     }
     @Override

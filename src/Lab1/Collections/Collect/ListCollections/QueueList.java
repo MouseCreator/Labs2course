@@ -39,14 +39,26 @@ public class QueueList<T> implements Queue<T> {
         return result;
     }
 
-    public void fillWithRandomValues(int num) {
-
-    }
     public int getSize() {
         return this.size;
     }
 
     public boolean isEmpty() {
         return this.size == 0;
+    }
+
+    @Override
+    public String toString() {
+        ListNode<T> current = end;
+        StringBuilder builder = new StringBuilder("[");
+        while (current != begin) {
+            builder.append(current.getValue().toString()).append(", ");
+            current = current.getNext();
+        }
+        if (current != null) {
+            builder.append(current.getValue());
+        }
+        builder.append("]");
+        return builder.toString();
     }
 }

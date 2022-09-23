@@ -5,10 +5,6 @@ import java.util.Queue;
 public class LibraryQueue<T> implements Lab1.Collections.Collect.Queue<T> {
 
     private Queue q;
-    @Override
-    public void fillWithRandomValues(int num) {
-
-    }
 
     @Override
     public int getSize() {

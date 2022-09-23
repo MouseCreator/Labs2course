@@ -1,6 +1,6 @@
 package Lab1.Collections.Collect;
 
-public class OversizeException extends Exception {
+public class OversizeException extends RuntimeException {
     public OversizeException(String message) {
         super(message);
     }

@@ -16,10 +16,6 @@ public class DequeueList<T> implements Stack<T>, Queue<T> {
         begin = null;
         end = null;
     }
-    @Override
-    public void fillWithRandomValues(int num) {
-
-    }
 
     @Override
     public int getSize() {

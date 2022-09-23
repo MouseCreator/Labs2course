@@ -6,7 +6,7 @@ import Lab1.Collections.Collect.Stack;
 import java.util.Arrays;
 
 
-public class StackArray<T> implements Stack<T>, ArrayCollection {
+public class StackArray<T> extends ArrayCollection implements Stack<T>  {
     private int lastIndex;
     private int limit;
     private T[] array;
@@ -22,10 +22,6 @@ public class StackArray<T> implements Stack<T>, ArrayCollection {
     }
     private void initArray() {
         this.array = (T[])new Object[limit];
-    }
-    @Override
-    public void fillWithRandomValues(int num) {
-
     }
 
     @Override

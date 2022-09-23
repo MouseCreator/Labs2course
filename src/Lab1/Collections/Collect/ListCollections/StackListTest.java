@@ -1,4 +1,5 @@
 package Lab1.Collections.Collect.ListCollections;
+import Lab1.Collections.Collect.EmptyException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class StackListTest {
@@ -28,9 +29,7 @@ class StackListTest {
         assertEquals(source[1], temp, 0.0001);
 
 
-        assertThrows(NullPointerException.class, ()-> {
-            double d =stack.popFront();
-        });
+        assertThrows(EmptyException.class, stack::popFront);
     }
 
 }

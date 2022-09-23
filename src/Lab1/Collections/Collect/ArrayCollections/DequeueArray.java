@@ -29,10 +29,6 @@ public class DequeueArray<T> implements Stack<T>, Queue<T>  {
         end = mid;
         begin = mid + 1;
     }
-    @Override
-    public void fillWithRandomValues(int num) {
-
-    }
 
     @Override
     public int getSize() {

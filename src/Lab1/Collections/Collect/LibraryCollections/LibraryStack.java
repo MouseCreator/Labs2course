@@ -11,11 +11,6 @@ public class LibraryStack<T> implements Lab1.Collections.Collect.Stack<T> {
 
 
     @Override
-    public void fillWithRandomValues(int num) {
-
-    }
-
-    @Override
     public int getSize() {
         return stack.size();
     }

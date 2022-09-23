@@ -1,6 +1,7 @@
 package Lab1.Collections.Collect.ArrayCollections;
 
 import Lab1.Collections.Collect.EmptyException;
+import Lab1.Collections.Collect.Generator;
 import Lab1.Collections.Collect.OversizeException;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,11 @@ class QueueArrayTest {
         queue.toString();
         queue.pushBack(4);
         assertEquals(queue.toString(), "[ 2 3 4 ]");
+        assertThrows(OversizeException.class, ()-> {
+            while (true) {
+                queue.pushBack(Generator.getInt());
+            }
+        });
     }
 
     @Test
@@ -27,7 +33,7 @@ class QueueArrayTest {
         assertEquals(3, queue.popBack());
         assertEquals(4, queue.popBack());
         assertThrows(EmptyException.class, ()-> {
-            double d =queue.popBack();
+            double d = queue.popBack();
         });
     }
 }

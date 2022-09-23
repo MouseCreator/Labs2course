@@ -7,10 +7,6 @@ import java.util.Deque;
 
 public class LibraryDeque<T> implements Stack<T>, Queue<T> {
     Deque<T> deque;
-    @Override
-    public void fillWithRandomValues(int num) {
-
-    }
 
     @Override
     public int getSize() {
