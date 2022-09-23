@@ -17,7 +17,7 @@ public class QueueList<T> implements Queue<T> {
 
 
     public QueueList<T> pushBack(T v) {
-        this.end = list.push(end, v);
+        this.end = list.pushBack(end, v);
         if (this.begin == null) {
             this.begin = this.end;
         }
@@ -49,9 +49,9 @@ public class QueueList<T> implements Queue<T> {
 
     @Override
     public String toString() {
-        ListNode<T> current = end;
+        ListNode<T> current = begin;
         StringBuilder builder = new StringBuilder("[");
-        while (current != begin) {
+        while (current != end) {
             builder.append(current.getValue().toString()).append(", ");
             current = current.getNext();
         }

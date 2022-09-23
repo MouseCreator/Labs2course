@@ -1,11 +1,9 @@
 package Lab1.Collections.Collect.ListCollections;
 
-import Lab1.Collections.Collect.EmptyException;
 import Lab1.Collections.Collect.Nodes.ListNode;
 import Lab1.Collections.Collect.Stack;
 
 public class StackList<T> implements Stack<T> {
-    NullPointerException e;
     private final ImplicitList<T> list;
     private ListNode<T> begin;
     private int size;
@@ -24,7 +22,7 @@ public class StackList<T> implements Stack<T> {
     }
 
     public StackList<T> pushFront(T t) {
-        this.begin = list.push(begin, t);
+        this.begin = list.pushFront(begin, t);
         this.size++;
         return this;
     }
