@@ -6,7 +6,7 @@ import Lab1.Collections.Geometry.GenLine;
 import java.util.Random;
 import java.util.Vector;
 
-public class Generator {
+public abstract class Generator {
     public static Random random = new Random();
     public static int getInt() {
         return random.nextInt(256);
