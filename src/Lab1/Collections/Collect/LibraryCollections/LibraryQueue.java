@@ -1,10 +1,14 @@
 package Lab1.Collections.Collect.LibraryCollections;
 
-import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class LibraryQueue<T> implements Lab1.Collections.Collect.Queue<T> {
 
-    private Queue q;
+    private final ArrayBlockingQueue<T> q;
+
+    public LibraryQueue(int capacity) {
+        q = new ArrayBlockingQueue<>(capacity);
+    }
 
     @Override
     public int getSize() {
@@ -24,11 +28,11 @@ public class LibraryQueue<T> implements Lab1.Collections.Collect.Queue<T> {
 
     @Override
     public T peekBack() {
-        return (T) q.peek();
+        return q.peek();
     }
 
     @Override
     public T popBack()  {
-        return (T) q.remove();
+        return q.remove();
     }
 }
