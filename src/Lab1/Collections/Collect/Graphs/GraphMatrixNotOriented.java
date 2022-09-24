@@ -29,6 +29,9 @@ public class GraphMatrixNotOriented<T> extends GraphMatrixOriented<T> {
         return this.hasStrongCycle();
     }
 
+    /**
+     * @return minimum spanning tree of the graph, null if graph is not connected
+     */
     public GraphMatrixNotOriented<T> spanningTree() {
         if (!this.isStrongConnected())
             return null;
@@ -56,12 +59,17 @@ public class GraphMatrixNotOriented<T> extends GraphMatrixOriented<T> {
     private SortedEdgeList<T> initEdgeList() {
         SortedEdgeList<T> list = new SortedEdgeList<>();
         T[] nodes = getNodes();
-        for (int i = 0; i < nodes.length; i++)
-            for (int j = 0; j < nodes.length; j++)
-                if (hasEdge(nodes[i], nodes[j]))
-                    list.add(nodes[i], nodes[j], getWeight(nodes[i], nodes[j]));
+        for (T node : nodes)
+            for (T t : nodes)
+                if (hasEdge(node, t))
+                    list.add(node, t, getWeight(node, t));
         return list;
     }
+
+    /**
+     *
+     * @return sum of all edge weights in the graph
+     */
     public int getWeight() {
         SortedEdgeList<T> list = initEdgeList();
         int sum = 0;

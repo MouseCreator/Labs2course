@@ -35,6 +35,10 @@ public class GraphStructureNotOriented<T> extends GraphStructureOriented<T> {
         return super.hasStrongCycle();
     }
 
+    /**
+     *
+     * @return min spanning tree of the graph
+     */
     public GraphStructureNotOriented<T> spanningTree() {
         if (!this.isStrongConnected())
             return null;
@@ -66,6 +70,11 @@ public class GraphStructureNotOriented<T> extends GraphStructureOriented<T> {
         }
         return list;
     }
+
+    /**
+     *
+     * @return sum of all edge weights of the graph
+     */
     public int getWeight() {
         SortedEdgeList<T> list = initEdgeList();
         int sum = 0;

@@ -9,7 +9,9 @@ public class GraphStructureOriented<T> extends Graph<T>{
     public GraphStructureOriented() {
         this.nodes = new HashMap<>();
     }
-
+    /**
+     * adds edge between {@param from} and {@param to} with weight {@param weight}
+     */
     public void addEdge(T from, T to, int weight) {
         if (hasEdge(from, to)) {
             this.changeEdgeWeight(from, to, weight);
@@ -24,6 +26,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
         }
 
     }
+
+    /**
+     * adds edge between {@param from} and {@param to} with weight MIN_WEIGHT
+     */
     public void addEdge(T from, T to) {
         this.addEdge(from, to, MIN_EDGE);
     }
@@ -37,6 +43,9 @@ public class GraphStructureOriented<T> extends Graph<T>{
         nodes.get(from).add(to, weight);
     }
 
+    /**
+     * Removes edge between {@param from} and {@param to}
+    */
     public void removeEdge(T from, T to) {
         if(hasPair(from, to)) {
             removePair(from, to);
@@ -49,6 +58,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
         nodes.get(from).remove(to);
     }
 
+    /**
+     *
+     * Sets weight {@param weight} to edge between {@param from} and {@param to} if such edge exists
+     */
     public void changeEdgeWeight(T from, T to, int weight) {
         if(hasPair(from, to)) {
             changeWeightPair(from, to, weight);
@@ -58,10 +71,19 @@ public class GraphStructureOriented<T> extends Graph<T>{
         nodes.get(from).changeWeight(to, weight);
     }
 
+    /**
+     *
+     * @param value is the node to be added
+     */
     public void addNode(T value) {
         assert !nodes.containsKey(value);
         nodes.put(value, new GraphNodeList<>());
     }
+
+    /**
+     *
+     * @param value is the node to be removed
+     */
     public void removeNode(T value) {
         nodes.remove(value);
         removeAllIncidentalEdges(value);
@@ -90,6 +112,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
         return (T[])nodes.keySet().toArray();
     }
 
+    /**
+     *
+     * @return true if {@param node} is connected with every other node
+     */
     public boolean isConnectedWithAll(T node) {
         assert nodes.containsKey(node);
         ArrayList<T> visitedNodes = new ArrayList<>();
@@ -97,7 +123,7 @@ public class GraphStructureOriented<T> extends Graph<T>{
         return visitedAll(visitedNodes);
     }
 
-    public boolean visitedAll(ArrayList<T> visitedNodes) {
+    private boolean visitedAll(ArrayList<T> visitedNodes) {
         return visitedNodes.size() == nodes.size();
     }
 
@@ -107,6 +133,8 @@ public class GraphStructureOriented<T> extends Graph<T>{
      * @param to is the node, to which the distance is to be found
      * @return distance from {@param from} to {@param to} or
      * INFINITE_WEIGHT if nodes are not connected or do not exist.
+     * Using Dijkstra algorithm, so negative edges might cause wrong result
+     *
      */
     public int getDistance(T from, T to) {
         if (!hasBoth(from, to)) {
@@ -154,6 +182,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
         return result;
     }
 
+    /**
+     *
+     * @return true if graph is connected
+     */
     public boolean isStrongConnected() {
         for (T key :nodes.keySet())
         {
@@ -213,7 +245,7 @@ public class GraphStructureOriented<T> extends Graph<T>{
 
     /**
      *
-     * @return true if graph is cycled. Reversible edges allowed
+     * @return true if graph is cycled, but 2-cycles are not allowed
      */
     protected boolean hasStrongCycle() {
         ArrayList<T> visited = new ArrayList<>();

@@ -7,12 +7,16 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private final NodeIndexList nodeIndexList;
     private final int maxNodes;
 
+    /**
+     *
+     * @return max nodes that graph might have, which is defined in the constructor
+     */
     public int getMaxNodes() {
         return maxNodes;
     }
-    int[][] edges;
+    private final int[][] edges;
 
-    HashMap<T, Integer> nodeIndex;
+    private final HashMap<T, Integer> nodeIndex;
 
     public GraphMatrixOriented(int maxNodes) {
         this.maxNodes = maxNodes;
@@ -30,6 +34,11 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     public boolean empty() {
         return maxEstimatedSize() == 0;
     }
+
+    /**
+     *
+     * @param value is a value that will be stored in the node
+     */
     public void addNode(T value) {
         int index = nodeIndexList.getFirstFree();
         if (indexInBounds(index)) {
@@ -41,9 +50,18 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         return index >= 0 && index < maxNodes;
     }
 
+    /**
+     *
+     * @return array of nodes that graph contains
+     */
     public T[] getNodes() {
         return (T[])nodeIndex.keySet().toArray();
     }
+
+    /**
+     *
+     * @param value is value stored in the node that is to be removed
+     */
     public void removeNode(T value) {
         if (hasNode(value)) {
             int index = nodeIndex.get(value);
@@ -55,12 +73,22 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private boolean hasNode(T key) {
          return nodeIndex.containsKey(key);
     }
+
+    /**
+     *
+     * adds an edge between {@param from} and {@param to} with weight {@param weight}
+     * if edge already exists, it will be overwritten
+     */
     public void addEdge(T from, T to, int weight) {
 
         int indexFrom = getIndex(from);
         int indexTo = getIndex(to);
         setWeight(indexFrom, indexTo, weight);
     }
+    /**
+     *
+     * adds an edge between {@param from} and {@param to} with weight MIN_EDGE
+     */
     public void addEdge(T from, T to) {
         addEdge(from, to, MIN_EDGE);
     }
@@ -82,6 +110,10 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         addEdge(from, to, NO_EDGE);
     }
 
+    /**
+     *
+     * sets weight to {@param weight} to edge between {@param from} and {@param to}
+     */
     public void changeEdgeWeight(T from, T to, int weight) {
         addEdge(from, to, weight);
     }
@@ -120,6 +152,12 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private boolean hasBoth(T from, T to) {
         return hasNode(from) && hasNode(to);
     }
+
+    /**
+     *
+     * @return min distance between {@param from} and {@param to}, using Dijkstra algorithm
+     * returns INFINITE_WEIGHT if nodes are not connected or do not exist
+     */
     public int getDistance(T from, T to) {
         if (!hasBoth(from, to)) {
             return INFINITE_WEIGHT;
@@ -236,6 +274,11 @@ public class GraphMatrixOriented<T> extends Graph<T>{
             DFS(visited, i);
         }
     }
+
+    /**
+     *
+     * @return true if graph is cycled
+     */
     public boolean hasCycle() {
         boolean[] visited = new boolean[maxEstimatedSize()];
         for (int i = 0; i < visited.length; i++) {
@@ -261,6 +304,10 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         return false;
     }
 
+    /**
+     *
+     * @return true if graph is cycled, but 2-cycles are not allowed
+     */
     public boolean hasStrongCycle() {
         boolean[] visited = new boolean[maxEstimatedSize()];
         for (int i = 0; i < visited.length; i++) {
