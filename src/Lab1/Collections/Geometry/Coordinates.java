@@ -61,7 +61,7 @@ public abstract class Coordinates {
         return points;
     }
 
-    public boolean goesThroughCenter(final Line line, final Circle circle) {
+    public static boolean goesThroughCenter(final Line line, final Circle circle) {
         Point center = circle.getCenter();
         return Coordinates.doubleEquals(center.y, center.x * line.getK() + line.getB());
     }
@@ -72,7 +72,7 @@ public abstract class Coordinates {
         return intersectsCircleCircle(circle1, circle2).size() == 1;
     }
 
-    public boolean goesThrough(final Line line, final Circle circle) {
+    public static boolean goesThrough(final Line line, final Circle circle) {
         return intersects(line, circle).size() == 2;
     }
 

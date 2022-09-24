@@ -2,8 +2,7 @@ package Lab1.Collections.Geometry;
 
 import org.junit.jupiter.api.Test;
 
-import static Lab1.Collections.Geometry.Coordinates.inversion;
-import static Lab1.Collections.Geometry.Coordinates.symmetry;
+import static Lab1.Collections.Geometry.Coordinates.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -119,4 +118,15 @@ class CoordinatesTest {
         assertEquals(line3, inversion(symmetryCenter, line3));
         assertEquals(new Circle(9, 5, 2), inversion(symmetryCenter, circle3));
     }
+    @Test
+    void lineTest() {
+        Circle circle = new Circle(0, 1, 3);
+        Line line1 = new Line(2, 1);
+        Line line2 = new Line(1, 0);
+
+        assertTrue(Coordinates.goesThroughCenter(line1, circle));
+        assertFalse(Coordinates.goesThroughCenter(line2, circle));
+        assertTrue(Coordinates.goesThrough(line2, circle));
+    }
+
 }
