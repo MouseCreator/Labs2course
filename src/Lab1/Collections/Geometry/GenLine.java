@@ -31,7 +31,7 @@ public class GenLine extends Figure{
     }
 
     public void set(double a, double b, double c) {
-        assert (a != 0 && b != 0);
+        assert !(a==0 && b==0);
         this.a = a;
         this.b = b;
         this.c = c;

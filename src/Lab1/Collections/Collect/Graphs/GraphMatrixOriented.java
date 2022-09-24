@@ -26,6 +26,10 @@ public class GraphMatrixOriented<T> extends Graph<T>{
             Arrays.fill(row, NO_EDGE);
         }
     }
+
+    public boolean empty() {
+        return maxEstimatedSize() == 0;
+    }
     public void addNode(T value) {
         int index = nodeIndexList.getFirstFree();
         if (indexInBounds(index)) {
@@ -52,6 +56,7 @@ public class GraphMatrixOriented<T> extends Graph<T>{
          return nodeIndex.containsKey(key);
     }
     public void addEdge(T from, T to, int weight) {
+
         int indexFrom = getIndex(from);
         int indexTo = getIndex(to);
         setWeight(indexFrom, indexTo, weight);
@@ -98,7 +103,8 @@ public class GraphMatrixOriented<T> extends Graph<T>{
      * @return if there is an edge between {@param from} and {@param to}
      */
     public boolean hasEdge(T from, T to) {
-        return getWeight(from, to) == NO_EDGE;
+        return hasBoth(from, to) &&
+                getWeight(from, to) != NO_EDGE;
     }
 
     /**
@@ -193,7 +199,7 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private boolean isConnectedWithAll(int index) {
         boolean[] visited = new boolean[maxEstimatedSize()];
         DFS(visited, index);
-        for (int i = 0; i < maxEstimatedSize(); i++) {
+        for (int i = 0; i < visited.length; i++) {
             if (isUnvisited(i, visited)) {
                 return false;
             }
