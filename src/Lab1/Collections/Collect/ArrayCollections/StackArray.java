@@ -1,12 +1,13 @@
 package Lab1.Collections.Collect.ArrayCollections;
 
+import Lab1.Collections.Collect.EmptyException;
 import Lab1.Collections.Collect.OversizeException;
 import Lab1.Collections.Collect.Stack;
 
 import java.util.Arrays;
 
 
-public class StackArray<T> extends ArrayCollection implements Stack<T>  {
+public class StackArray<T> extends ArrayCollection<T> implements Stack<T>  {
     private int lastIndex;
     private int limit;
     private T[] array;
@@ -62,7 +63,9 @@ public class StackArray<T> extends ArrayCollection implements Stack<T>  {
 
     @Override
     public T popFront() {
-        assert !isEmpty();
+        if (isEmpty()) {
+            throw new EmptyException();
+        }
         return array[lastIndex--];
     }
 

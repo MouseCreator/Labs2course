@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,11 +28,17 @@ class StackArrayTest {
         }
     }
     void reverseInputArray() {
-        Collections.reverse(Arrays.asList(ints));
+        int length = ints.length;
+        int[] copy = new int[length];
+        for (int i = 0; i < length; i++) {
+            copy[i] = ints[length-1-i];
+        }
+        ints = copy;
     }
     @Test
     void pushFrontTest() {
         pushInts();
+
         reverseInputArray();
         assertEquals(Arrays.toString(ints), stack.toString());
 
@@ -47,13 +52,10 @@ class StackArrayTest {
     void popFrontTest() {
         pushInts();
         reverseInputArray();
-        assertThrows(EmptyException.class, ()-> {
-            int i = 0;
-            while (stack.getLimit() < stack.ABSOLUTE_ELEMENT_LIMIT) {
-                assertEquals(ints[i], stack.popFront());
-                i++;
-            }
-        });
+        for (int anInt : ints) {
+            assertEquals(anInt, stack.popFront());
+        }
+        assertThrows(EmptyException.class, ()-> stack.popFront());
 
     }
 }
