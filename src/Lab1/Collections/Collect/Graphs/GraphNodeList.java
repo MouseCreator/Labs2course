@@ -5,6 +5,10 @@ import Lab1.Collections.Collect.Nodes.GraphNode;
 import java.util.LinkedList;
 
 public class GraphNodeList<T> {
+
+    public GraphNodeList(GraphNodeList<T> other) {
+        this.edges = new LinkedList<>(other.edges);
+    }
     private LinkedList<GraphNode<T>> edges;
     public GraphNodeList() {
         edges = new LinkedList<>();
@@ -14,6 +18,12 @@ public class GraphNodeList<T> {
     }
     public void remove(T value) {
         edges.remove(find(value));
+    }
+
+    public GraphNode<T> popLast() {
+        GraphNode<T> result = edges.getLast();
+        this.remove(result.getValue());
+        return result;
     }
     public void changeWeight(T value, int weight) {
         find(value).setWeight(weight);
@@ -48,5 +58,9 @@ public class GraphNodeList<T> {
     }
     public T get(int i) {
         return edges.get(i).getValue();
+    }
+
+    public boolean empty() {
+        return this.size() == 0;
     }
 }

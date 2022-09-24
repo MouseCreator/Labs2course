@@ -64,5 +64,27 @@ class GraphStructureOrientedTest {
         assertEquals(6, graph.getDistance(circles[0], circles[1]));
     }
 
+    @Test
+    void hasCycleTest() {
+        GraphStructureOriented<Double> graph = new GraphStructureOriented<>();
+        Double[] doubles = new Double[4];
+        for (int i = 0; i < doubles.length; i++) {
+            doubles[i] = Math.sqrt(i);
+            graph.addNode(doubles[i]);
+        }
+
+        graph.addEdge(doubles[0], doubles[1]);
+        graph.addEdge(doubles[2], doubles[1]);
+        graph.addEdge(doubles[1], doubles[3]);
+        assertFalse(graph.hasCycle());
+
+        graph.addEdge(doubles[1], doubles[0]);
+        assertTrue(graph.hasCycle());
+        assertFalse(graph.hasStrongCycle());
+
+        graph.addEdge(doubles[3], doubles[2]);
+        assertTrue(graph.hasStrongCycle());
+    }
+
 
 }

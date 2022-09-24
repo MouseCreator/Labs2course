@@ -38,7 +38,8 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     }
 
     public T[] getNodes() {
-        return (T[])nodeIndex.keySet().toArray();
+        return
+                (T[])nodeIndex.keySet().toArray();
     }
     public void removeNode(T value) {
         if (hasNode(value)) {
@@ -93,10 +94,12 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         return getWeight(index1, index2);
     }
 
+    /**
+     * @return if there is an edge between {@param from} and {@param to}
+     */
     public boolean hasEdge(T from, T to) {
         return getWeight(from, to) == NO_EDGE;
     }
-
 
     /**
      *

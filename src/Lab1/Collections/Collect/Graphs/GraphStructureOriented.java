@@ -11,6 +11,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
     }
 
     public void addEdge(T from, T to, int weight) {
+        if (hasEdge(from, to)) {
+            this.changeEdgeWeight(from, to, weight);
+            return;
+        }
         if (!nodes.containsKey(from)) {
             createNewNodeList(from, to, weight);
         }
@@ -18,6 +22,7 @@ public class GraphStructureOriented<T> extends Graph<T>{
             assert !hasPair(from, to);
             addToExistingList(from, to, weight);
         }
+
     }
     public void addEdge(T from, T to) {
         this.addEdge(from, to, MIN_EDGE);
@@ -69,13 +74,13 @@ public class GraphStructureOriented<T> extends Graph<T>{
     }
 
     public int getWeight(T from, T to) {
-        if (hasBoth(from, to)) {
+        if (hasPair(from, to)) {
             return nodes.get(from).find(to).getWeight();
         }
         return NO_EDGE;
     }
     public boolean hasEdge(T from, T to) {
-        return getWeight(from, to) == NO_EDGE;
+        return hasPair(from, to) && getWeight(from, to) != NO_EDGE;
     }
     public boolean hasBoth(T from, T to) {
         return nodes.containsKey(from) && nodes.containsKey(to);
@@ -89,6 +94,10 @@ public class GraphStructureOriented<T> extends Graph<T>{
         assert nodes.containsKey(node);
         ArrayList<T> visitedNodes = new ArrayList<>();
         DFS(visitedNodes, node);
+        return visitedAll(visitedNodes);
+    }
+
+    public boolean visitedAll(ArrayList<T> visitedNodes) {
         return visitedNodes.size() == nodes.size();
     }
 
@@ -173,5 +182,63 @@ public class GraphStructureOriented<T> extends Graph<T>{
         }
         return builder.toString();
     }
+
+    /**
+     *
+     * @return true if graph is cycled
+     */
+    public boolean hasCycle() {
+        ArrayList<T> visited = new ArrayList<>();
+        for (T key : nodes.keySet())
+        {
+            visited.clear();
+            if (DfsCycle(visited, key))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean DfsCycle(ArrayList<T> visited, T current) {
+        if (visited.contains(current))
+            return true;
+        visited.add(current);
+        GraphNodeList<T> list = new GraphNodeList<>(nodes.get(current));
+
+        while(!list.empty()) {
+            if (DfsCycle(visited, list.popLast().getValue()))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @return true if graph is cycled. Reversible edges allowed
+     */
+    protected boolean hasStrongCycle() {
+        ArrayList<T> visited = new ArrayList<>();
+        for (T key : nodes.keySet())
+        {
+            visited.clear();
+            if (DfsCycleStrong(visited, null, key))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean DfsCycleStrong(ArrayList<T> visited,T from, T current) {
+        if (visited.contains(current))
+            return true;
+        visited.add(current);
+        GraphNodeList<T> list = new GraphNodeList<>(nodes.get(current));
+
+        while(!list.empty()) {
+            T next = list.popLast().getValue();
+            if (!next.equals(from) && DfsCycleStrong(visited, current, next))
+                return true;
+        }
+        return false;
+    }
+
 
 }
