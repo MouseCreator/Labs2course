@@ -1,0 +1,13 @@
+Laboratory work №1
+
+Code documentation (JavaDoc) and UnitTests (JUnit5) are included.
+
+Variants:
+    List 1:
+        (**) Stack, queue, deque
+        (****) Graphs (using matrix and adjacency list)
+            +(*) for additional algorithms (isCycled, MinSpanningTree and GetWeight)
+    List 2:
+        (***) Figures on the plane: lines and circles
+
+    Total: (**) + (****) + (*) + (***) = 10
