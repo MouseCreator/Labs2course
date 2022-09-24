@@ -5,16 +5,14 @@ import Lab1.Collections.Collect.OversizeException;
 import Lab1.Collections.Collect.Stack;
 import Lab1.Collections.Collect.Queue;
 
-public class DequeueArray<T> implements Stack<T>, Queue<T>  {
+public class DequeueArray<T> extends ArrayCollection<T> implements Stack<T>, Queue<T>  {
     private int limit;
     private T[] array;
     private int begin;
     private int end;
 
     public DequeueArray() {
-        this.limit = 128;
-        this.initArray();
-        this.initPointers();
+        this(128);
     }
     public DequeueArray(int limit) {
         this.limit = limit;
@@ -43,7 +41,7 @@ public class DequeueArray<T> implements Stack<T>, Queue<T>  {
         return index < 0 || index >= limit;
     }
     private void doubleArray() throws OversizeException {
-        if(limit > Integer.MAX_VALUE / 2)
+        if(limit * 2 > ABSOLUTE_ELEMENT_LIMIT)
             throw new OversizeException("Array limit is out of bounds.");
         this.array = copyArray();
         limit *= 2;
@@ -53,9 +51,7 @@ public class DequeueArray<T> implements Stack<T>, Queue<T>  {
         T[] copy = (T[]) new Object[limit*2];
         this.begin += addToEachBound;
         this.end += addToEachBound;
-        for (int i = 0; i < array.length; i++) {
-            copy[addToEachBound+i] = array[i];
-        }
+        System.arraycopy(array, 0, copy, addToEachBound, array.length);
         return copy;
     }
 
@@ -114,9 +110,22 @@ public class DequeueArray<T> implements Stack<T>, Queue<T>  {
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
         for (int i = begin; i <= end; i++) {
-            builder.append(" ").append(array[i]);
+            if (i != begin) {
+                builder.append(", ");
+            }
+            builder.append(array[i]);
         }
-        builder.append(" ]");
+        builder.append("]");
         return builder.toString();
+    }
+
+    @Override
+    public int getLimit() {
+        return this.limit;
+    }
+
+    @Override
+    public boolean isFull() {
+        return this.limit == this.getSize();
     }
 }

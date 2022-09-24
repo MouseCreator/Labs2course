@@ -36,12 +36,11 @@ public class StackArray<T> extends ArrayCollection implements Stack<T>  {
 
     @Override
     public StackArray<T> pushFront(T v) throws OversizeException {
-        if (lastIndex < limit) {
+        if ((lastIndex + 1) < limit) {
             lastIndex++;
             this.array[lastIndex] = v;
         }
         else {
-            System.err.println("Stack out of bounds");
             this.doubleBounds();
             this.pushFront(v);
         }
@@ -49,7 +48,7 @@ public class StackArray<T> extends ArrayCollection implements Stack<T>  {
     }
 
     private void doubleBounds() throws OversizeException{
-        if(limit > Integer.MAX_VALUE / 2)
+        if(limit * 2 > this.ABSOLUTE_ELEMENT_LIMIT)
             throw new OversizeException("Array limit is out of bounds.");
         limit *= 2;
         this.array = Arrays.copyOf(this.array, limit);
@@ -74,5 +73,18 @@ public class StackArray<T> extends ArrayCollection implements Stack<T>  {
 
     public boolean isFull() {
         return this.lastIndex == limit - 1;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("[");
+        for (int i = 0; i < this.getSize(); i++) {
+            builder.append(array[i]);
+            if (i != this.getSize()-1) {
+                builder.append(", ");
+            }
+        }
+        builder.append("]");
+        return builder.toString();
     }
 }
