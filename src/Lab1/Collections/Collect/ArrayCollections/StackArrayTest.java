@@ -43,7 +43,7 @@ class StackArrayTest {
         assertEquals(Arrays.toString(ints), stack.toString());
 
         assertThrows(OversizeException.class, ()-> {
-            while (true) {
+            while (stack.getLimit() <= stack.ABSOLUTE_ELEMENT_LIMIT) {
                 Generator.fillInt(stack, 100);
             }
         });
