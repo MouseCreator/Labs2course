@@ -21,8 +21,8 @@ public class Circle extends Figure{
         this.center = new Point(x, y);
         this.radius = radius;
     }
-    public Circle(Point dote, double radius) {
-        this.center = dote;
+    public Circle(Point center, double radius) {
+        this.center = center;
         this.radius = radius;
     }
     @Override
@@ -43,6 +43,9 @@ public class Circle extends Figure{
         return Coordinates.doubleEquals(c.radius, radius) && c.center.equals(center);
     }
 
+    /**
+     * @return true if circle contains {@param point} and false if it doesn't
+     */
     public boolean contains(Point point) {
         double x = point.x;
         double y = point.y;

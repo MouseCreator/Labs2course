@@ -16,7 +16,7 @@ class StackArrayTest {
     private int[] ints;
     @BeforeEach
     void init() {
-        stack = new StackArray<>();
+        stack = new StackArray<>(10);
         ints = new int[3];
         for (int i = 0; i < ints.length; i++) {
             ints[i] = i;

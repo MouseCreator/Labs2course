@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Was implemented to avoid using Point arrays and returning null from public methods of other classes
  */
 public class PointFamily {
-    private ArrayList<Point> points;
+    private final ArrayList<Point> points;
 
     public PointFamily() {
         this.points = new ArrayList<>();
@@ -27,14 +27,13 @@ public class PointFamily {
             return true;
         if (this.getClass() != other.getClass())
             return false;
-        if (other instanceof PointFamily family) {
-            if (family.size() == this.size()) {
-                for (int i = 0; i < family.size(); i++) {
-                    if (!this.get(i).equals(family.get(i)))
-                        return false;
-                }
-                return true;
+        PointFamily family = (PointFamily) other;
+        if (family.size() == this.size()) {
+            for (int i = 0; i < family.size(); i++) {
+                if (!this.get(i).equals(family.get(i)))
+                    return false;
             }
+            return true;
         }
         return false;
     }
@@ -69,24 +68,24 @@ public class PointFamily {
 
     public void sortByX() {
         for (int i = 0; i < this.size(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (points.get(i).x > points.get(j).x) {
-                    Point temp = points.get(i);
-                    points.set(i, points.get(j));
-                    points.set(j, temp);
-                }
+            Point key = this.get(i);
+            int j = i - 1;
+            while (j >= 0 && this.get(j).x > key.x) {
+                this.set(j + 1, this.get(j));
+                j--;
             }
+            this.set(j+1, key);
         }
     }
     public void sortByY() {
         for (int i = 0; i < this.size(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (points.get(i).y > points.get(j).y) {
-                    Point temp = points.get(i);
-                    points.set(i, points.get(j));
-                    points.set(j, temp);
-                }
+            Point key = this.get(i);
+            int j = i - 1;
+            while (j >= 0 && this.get(j).y > key.y) {
+                this.set(j + 1, this.get(j));
+                j--;
             }
+            this.set(j+1, key);
         }
     }
 
@@ -104,6 +103,7 @@ public class PointFamily {
     }
 
     public boolean isEmpty() { return this.size() == 0; }
+
     public void set(int index, Point point) {
         this.points.set(index, point);
     }

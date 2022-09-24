@@ -1,10 +1,9 @@
 package Lab1.Collections.Geometry;
 
-public class CoordinatesMath {
-
-    public static double vectorLength(double x, double y) {
-        return Math.sqrt(x * x + y * y);
-    }
+/**
+ * Is an auxiliary class, which helps to do calculations, such as solving quadratic equations and transform vectors
+ */
+public abstract class CoordinatesMath {
     public static double[] solveQuadraticEquation(double a, double b, double c) {
         double disc = getDiscriminant(a, b, c);
         return getRoots(a, b, disc);
@@ -25,6 +24,9 @@ public class CoordinatesMath {
         }
         return (-b - sqrtDiscriminant) / 2 / a;
     }
+    private static double getRoot2(double a, double b, double disc) {
+        return (-b + Math.sqrt(disc)) / 2 / a;
+    }
 
     public static Vector2D add(final Vector2D a, final Vector2D b) {
         return new Vector2D(a.x + b.x, a.y + b.y);
@@ -38,7 +40,5 @@ public class CoordinatesMath {
     public static Vector2D opposite(final Vector2D a) {
         return new Vector2D(-a.x, -a.y);
     }
-    private static double getRoot2(double a, double b, double disc) {
-        return (-b + Math.sqrt(disc)) / 2 / a;
-    }
+
 }

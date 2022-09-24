@@ -1,5 +1,9 @@
 package Lab1.Collections.Geometry;
 
+/**
+ * Line is a geometric object, representing y = kx + b equation. From definition, it cannot be parallel to X axis.
+ * It may be used for simple geometric calculations. For more complex calculations consider using GenLine class instead.
+ */
 public class Line extends Figure {
     private double k;
 
@@ -35,28 +39,9 @@ public class Line extends Figure {
     public String toEquation() {
         return String.format("y = %.2fx + %.2f", k, b);
     }
-    public boolean isParallelTo(Line other) {
-        return Coordinates.doubleEquals(this.k, other.getK()) && !Coordinates.doubleEquals(this.b, other.getB());
-    }
-    public Point intersectWithLine(Line other){
-        if (isParallelTo(other)) {
-            return null;
-        }
-        else {
-            return getDot(other);
-        }
-    }
-    private Point getDot(Line other) {
-        Point point = new Point();
-        point.x = evaluateIntersectPointX(other);
-        point.y = evaluateIntersectPointY(point.x);
-        return point;
-    }
-    private double evaluateIntersectPointX(Line other) {
-        return (other.getB() - this.b) / (this.k - other.getK());
-    }
-    private double evaluateIntersectPointY(double x) {
-        return x * k + b;
+
+    public GenLine toGenLine() {
+        return new GenLine(k, -1, b);
     }
 
     public double getYFromX(final double x) {

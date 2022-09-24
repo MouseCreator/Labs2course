@@ -13,8 +13,7 @@ public class QueueArray<T> extends ArrayCollection<T> implements Queue<T> {
     private int lastInQueue = 0;
 
     public QueueArray() {
-        limit = 128;
-        initArray();
+        this(128);
     }
     public QueueArray(int limit) {
 

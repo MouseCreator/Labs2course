@@ -11,8 +11,13 @@ public class Vector2D {
     public double length() {
         return Math.sqrt(x*x+y*y);
     }
+
+    public boolean isZero() {
+        return x==0 && y==0;
+    }
+
     public void normalize() {
-        if (this.x == 0 && this.y == 0) {
+        if (isZero()) {
             return;
         }
         this.x = x / length();

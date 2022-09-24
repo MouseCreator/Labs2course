@@ -1,6 +1,9 @@
 package Lab1.Collections.Geometry;
 
-
+/**
+ * Is an abstract class with static methods, which helps to do calculations with geometric figures
+ * such as circles, lines and general lines.
+ */
 public abstract class Coordinates {
     private static final double delta = 0.001;
     public static boolean doubleEquals(double a, double b) {
@@ -11,7 +14,7 @@ public abstract class Coordinates {
         return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
     }
 
-    public static PointFamily intersectsLineCircle(Line line, Circle circle) {
+    public static PointFamily intersects(Line line, Circle circle) {
         double k = line.getK();
         double b = line.getB();
         double centerX = circle.getCenter().x;
@@ -57,23 +60,25 @@ public abstract class Coordinates {
         }
         return points;
     }
+
     public boolean goesThroughCenter(final Line line, final Circle circle) {
         Point center = circle.getCenter();
         return Coordinates.doubleEquals(center.y, center.x * line.getK() + line.getB());
     }
     public static boolean isTangent(final Line line, final Circle circle) {
-        return intersectsLineCircle(line, circle).size() == 1;
+        return intersects(line, circle).size() == 1;
     }
-    public static boolean isTangent(Circle circle1, Circle circle2) {
+    public static boolean isTangent(final Circle circle1, final Circle circle2) {
         return intersectsCircleCircle(circle1, circle2).size() == 1;
     }
+
     public boolean goesThrough(final Line line, final Circle circle) {
-        return intersectsLineCircle(line, circle).size() == 2;
+        return intersects(line, circle).size() == 2;
     }
 
     public static PointFamily intersectsCircleCircle(final Circle circle1, final Circle circle2) {
         Line line = toLine(circle1, circle2);
-        PointFamily intersection = intersectsLineCircle(line, circle1);
+        PointFamily intersection = intersects(line, circle1);
         removePointsOutOfCircle(intersection, circle1);
         return intersection;
     }
@@ -168,6 +173,7 @@ public abstract class Coordinates {
     public static GenLine orthogonalTo(GenLine line, Point goesThrough) {
         return new GenLine(line.b(), -line.a(), -(line.b()*goesThrough.x - line.a() * goesThrough.y));
     }
+
     public static Vector2D orthogonalTo(Vector2D vector) {
         double cord1 = vector.y;
         double cord2 = -vector.x;
