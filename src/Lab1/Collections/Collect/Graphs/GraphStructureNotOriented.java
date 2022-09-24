@@ -26,6 +26,11 @@ public class GraphStructureNotOriented<T> extends GraphStructureOriented<T> {
     }
 
     @Override
+    public boolean isStrongConnected() {
+        return nodes.isEmpty() || isConnectedWithAll(getNodes()[0]);
+    }
+
+    @Override
     public boolean hasCycle() {
         return super.hasStrongCycle();
     }

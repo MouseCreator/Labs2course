@@ -1,8 +1,5 @@
 package Lab1.Collections.Collect.Graphs;
 
-
-import Lab1.Collections.Collect.ListCollections.QueueList;
-
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -10,6 +7,9 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     private final NodeIndexList nodeIndexList;
     private final int maxNodes;
 
+    public int getMaxNodes() {
+        return maxNodes;
+    }
     int[][] edges;
 
     HashMap<T, Integer> nodeIndex;
@@ -42,14 +42,14 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     }
 
     public T[] getNodes() {
-        return
-                (T[])nodeIndex.keySet().toArray();
+        return (T[])nodeIndex.keySet().toArray();
     }
     public void removeNode(T value) {
         if (hasNode(value)) {
             int index = nodeIndex.get(value);
             nodeIndex.remove(value);
             nodeIndexList.free(index);
+            Arrays.fill(edges[index], NO_EDGE);
         }
     }
     private boolean hasNode(T key) {
@@ -241,29 +241,50 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         for (int i = 0; i < visited.length; i++) {
             if (isUnvisited(i, visited)) {
                 clearVisited(visited); //to avoid forks: (A->B), (C->B)
-                if (BfsCycle(visited, i)) {
+                if (DfsCycle(visited, i)) {
                     return true;
                 }
             }
         }
         return false;
     }
-    private boolean BfsCycle(boolean[] visited, int current) {
+    private boolean DfsCycle(boolean[] visited, int current) {
         if (visited[current])
             return true;
         visited[current] = true;
-        //used my own queue here
-        QueueList<Integer> queue = new QueueList<>();
         for (int i = 0; i < visited.length; i++) {
             if (edges[current][i] == NO_EDGE)
                 continue;
-            queue.pushBack(i);
-        }
-
-        while(!queue.isEmpty()) {
-           if (BfsCycle(visited, queue.popBack()))
-               return true;
+            if(DfsCycle(visited, i))
+                return true;
         }
         return false;
     }
+
+    public boolean hasStrongCycle() {
+        boolean[] visited = new boolean[maxEstimatedSize()];
+        for (int i = 0; i < visited.length; i++) {
+            if (isUnvisited(i, visited)) {
+                clearVisited(visited);
+                if (DfsStrongCycle(visited, -1, i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean DfsStrongCycle(boolean[] visited, int from, int current) {
+        if (visited[current])
+            return true;
+        visited[current] = true;
+        for (int i = 0; i < visited.length; i++) {
+            if (edges[current][i] == NO_EDGE || i == from)
+                continue;
+            if(DfsStrongCycle(visited, current, i))
+                return true;
+        }
+        return false;
+    }
+
+
 }

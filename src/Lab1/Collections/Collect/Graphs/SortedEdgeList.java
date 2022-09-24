@@ -39,6 +39,7 @@ public class SortedEdgeList<T> {
         }
     }
     public SortedEdgeListNode<T> pop() {
+        assert begin != null;
         SortedEdgeListNode<T> result = begin;
         begin = begin.next;
         return result;
