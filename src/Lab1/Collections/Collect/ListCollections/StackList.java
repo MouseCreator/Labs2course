@@ -43,11 +43,13 @@ public class StackList<T> implements Stack<T> {
         ListNode<T> node = this.begin;
         StringBuilder builder = new StringBuilder("[");
         while(node != null) {
-            builder.append(" ");
             builder.append(node.getValue().toString());
+            if (node.hasNext())
+                builder.append(", ");
             node = node.getNext();
         }
-        builder.append(" ]");
+
+        builder.append("]");
         return builder.toString();
     }
     protected static StackList<Double> fromDouble(double[] source) {

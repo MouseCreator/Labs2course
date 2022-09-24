@@ -1,5 +1,6 @@
 package Lab1.Collections.Collect.ListCollections;
 
+import Lab1.Collections.Collect.EmptyException;
 import Lab1.Collections.Collect.Nodes.DoubleListNode;
 
 class ImplicitDoubleList<T> {
@@ -21,12 +22,15 @@ class ImplicitDoubleList<T> {
         return toAdd;
     }
 
-    public T peek(DoubleListNode<T> position) {
-        assert position != null;
+    public T peek(DoubleListNode<T> position) throws EmptyException {
+        if (position == null)
+            throw new EmptyException();
         return position.getValue();
     }
-    public DoubleListNode<T> pop(DoubleListNode<T> position) {
-        assert position != null;
+    public DoubleListNode<T> pop(DoubleListNode<T> position) throws EmptyException {
+        if (position == null) {
+            throw new EmptyException();
+        }
         if (position.hasNext()) {
             DoubleListNode<T> nextNode = position.getNext();
             nextNode.setPrev(null);
@@ -40,5 +44,6 @@ class ImplicitDoubleList<T> {
         else {
             return null;
         }
+
     }
 }

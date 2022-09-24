@@ -33,6 +33,7 @@ class QueueListTest {
 
     void pushCircles() {
         IntStream.range(0, circles.length).forEach(i -> queue.pushBack(circles[i]));
+        assertEquals(circles.length, queue.getSize());
     }
     @Test
     void popBack() {
@@ -40,6 +41,7 @@ class QueueListTest {
         for (Circle i : circles) {
             assertEquals(i, queue.popBack());
         }
+        assertTrue(queue.isEmpty());
         assertThrows(EmptyException.class, queue::popBack);
     }
 }

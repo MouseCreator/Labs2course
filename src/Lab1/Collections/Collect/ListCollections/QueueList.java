@@ -51,7 +51,7 @@ public class QueueList<T> implements Queue<T> {
     public String toString() {
         ListNode<T> current = begin;
         StringBuilder builder = new StringBuilder("[");
-        while (current != end) {
+        while (current != null && current != end) {
             builder.append(current.getValue().toString()).append(", ");
             current = current.getNext();
         }
