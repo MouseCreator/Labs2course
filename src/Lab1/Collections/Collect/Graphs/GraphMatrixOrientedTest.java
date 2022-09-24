@@ -1,6 +1,5 @@
 package Lab1.Collections.Collect.Graphs;
 
-import Lab1.Collections.Geometry.Circle;
 import Lab1.Collections.Geometry.Figure;
 import Lab1.Collections.Geometry.GenLine;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class GraphMatrixOrientedTest {
         assertFalse(graph.isConnectedWithAll(0));
 
         graph.addEdge(2, 4);
-        //now i'm connected
+        //now I'm connected
         assertTrue(graph.isConnectedWithAll(0));
 
         assertFalse(graph.isStrongConnected());
@@ -52,5 +51,25 @@ class GraphMatrixOrientedTest {
         graph.addEdge(lines[3], lines[4], 4);
 
         assertEquals(6, graph.getDistance(lines[0], lines[4]));
+    }
+
+    @Test
+    void hasCycleTest() {
+        GraphMatrixOriented<String> graph = new GraphMatrixOriented<>(5);
+        String[] strings = new String[5];
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = "Number " + i;
+            graph.addNode(strings[i]);
+        }
+
+        graph.addEdge(strings[0], strings[1]);
+        graph.addEdge(strings[2], strings[1]);
+        graph.addEdge(strings[1], strings[3]);
+
+        assertFalse(graph.hasCycle());
+
+        graph.addEdge(strings[3], strings[2]);
+
+        assertTrue(graph.hasCycle());
     }
 }

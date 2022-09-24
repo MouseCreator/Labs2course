@@ -1,6 +1,8 @@
 package Lab1.Collections.Collect.Graphs;
 
 
+import Lab1.Collections.Collect.ListCollections.QueueList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -176,6 +178,12 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         }
         return builder.toString();
     }
+
+    /**
+     *
+     * @return Upper bound of reserved nodes; which is >= actual number of reserved nodes
+     * and <= max possible number of nodes in the graph
+     */
     private int maxEstimatedSize() {
         return this.nodeIndexList.maxIndex() + 1;
     }
@@ -183,11 +191,19 @@ public class GraphMatrixOriented<T> extends Graph<T>{
         boolean[] visited = new boolean[maxEstimatedSize()];
         DFS(visited, index);
         for (int i = 0; i < maxEstimatedSize(); i++) {
-            if (nodeIndexList.isReserved(i) && !visited[i]) {
+            if (isUnvisited(i, visited)) {
                 return false;
             }
         }
         return true;
+    }
+
+    private boolean isUnvisited(int index, boolean[] visited) {
+        return nodeIndexList.isReserved(index) && !visited[index];
+    }
+
+    private void clearVisited(boolean[] visited) {
+        Arrays.fill(visited, false);
     }
 
     /**
@@ -205,10 +221,40 @@ public class GraphMatrixOriented<T> extends Graph<T>{
 
     private void DFS(boolean[] visited, int current) {
         visited[current] = true;
-        for (int i = 0; i < maxEstimatedSize(); i++) {
+        for (int i = 0; i < visited.length; i++) {
             if (edges[current][i] == NO_EDGE || visited[i])
                 continue;
             DFS(visited, i);
         }
+    }
+    public boolean hasCycle() {
+        boolean[] visited = new boolean[maxEstimatedSize()];
+        for (int i = 0; i < visited.length; i++) {
+            if (isUnvisited(i, visited)) {
+                clearVisited(visited); //to avoid forks: (A->B), (C->B)
+                if (BfsCycle(visited, i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean BfsCycle(boolean[] visited, int current) {
+        if (visited[current])
+            return true;
+        visited[current] = true;
+        //used my own queue here
+        QueueList<Integer> queue = new QueueList<>();
+        for (int i = 0; i < visited.length; i++) {
+            if (edges[current][i] == NO_EDGE)
+                continue;
+            queue.pushBack(i);
+        }
+
+        while(!queue.isEmpty()) {
+           if (BfsCycle(visited, queue.popBack()))
+               return true;
+        }
+        return false;
     }
 }

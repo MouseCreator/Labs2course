@@ -3,11 +3,13 @@ package Lab1.Collections.Collect.LibraryCollections;
 import Lab1.Collections.Collect.Stack;
 import Lab1.Collections.Collect.Queue;
 
-import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class LibraryDeque<T> implements Stack<T>, Queue<T> {
-    Deque<T> deque;
-
+    private final ArrayDeque<T> deque;
+    LibraryDeque() {
+        deque = new ArrayDeque<>();
+    }
     @Override
     public int getSize() {
         return deque.size();
