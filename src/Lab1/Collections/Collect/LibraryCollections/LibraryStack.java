@@ -5,7 +5,7 @@ import java.util.Stack;
 public class LibraryStack<T> implements Lab1.Collections.Collect.Stack<T> {
     private final Stack<T> stack;
 
-    LibraryStack() {
+    public LibraryStack() {
         this.stack = new Stack<>();
     }
 
