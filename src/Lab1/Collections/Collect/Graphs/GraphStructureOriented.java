@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GraphStructureOriented<T> extends Graph<T>{
-    HashMap<T, GraphNodeList<T>> nodes;
+    protected HashMap<T, GraphNodeList<T>> nodes;
     public GraphStructureOriented() {
         this.nodes = new HashMap<>();
     }
@@ -51,7 +51,7 @@ public class GraphStructureOriented<T> extends Graph<T>{
             removePair(from, to);
         }
     }
-    private boolean hasPair(T from, T to) {
+    protected boolean hasPair(T from, T to) {
         return nodes.containsKey(from) && nodes.get(from).has(to);
     }
     private void removePair(T from, T to) {

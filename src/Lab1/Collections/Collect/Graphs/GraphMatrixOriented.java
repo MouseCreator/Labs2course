@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class GraphMatrixOriented<T> extends Graph<T>{
-    private final NodeIndexList nodeIndexList;
-    private final int maxNodes;
+    protected final NodeIndexList nodeIndexList;
+    protected final int maxNodes;
 
     /**
      *
@@ -14,7 +14,7 @@ public class GraphMatrixOriented<T> extends Graph<T>{
     public int getMaxNodes() {
         return maxNodes;
     }
-    private final int[][] edges;
+    protected final int[][] edges;
 
     private final HashMap<T, Integer> nodeIndex;
 
