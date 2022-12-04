@@ -1,0 +1,7 @@
+Using PDFBox to export study sets from previous lab as PDF files.
+
+Library: org.apache.pdfbox
+Version: 2.0.22
+
+Used:
+Creating and saving PDF document, adding pages of different size, drawing images, text and figures in PDF, filling content with different colors (customizable).
